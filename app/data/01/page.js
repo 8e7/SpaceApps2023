@@ -33,9 +33,12 @@ export default function Page() {
   });
 
   const [path, setPath] = useState(Array(0));
+  const [synth, setSynth] = useState();
 
-  useEffect(() => {
+  useEffect(() => { 
     if (initMusic === true) {
+      const newSynth = new Tone.PolySynth().toDestination();
+      setSynth(newSynth);
       Tone.start();
     }
   }, [initMusic]);
@@ -49,7 +52,7 @@ export default function Page() {
   function mouseup(e) {
     setMouseHold(false);
     console.log(path);
-    music.play_music();
+    music.play_music(synth);
     setPath(Array(0)); //clears path
   }
   function mousemove(e) {
