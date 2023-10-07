@@ -4,12 +4,10 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <body>
       <div id="main">
         <Description />
         <Demostration />
       </div>
-    </body>
   );
 }
 
@@ -35,21 +33,21 @@ function Demostration() {
   return (
     <div id="demo">
       <h2>Listen to our demos</h2>
-      <Imagelink num="0" />
-      <Imagelink num="1" />
+      <Imagelink num="01" />
+      <Imagelink num="02" />
+      {/* <Imagelink num="03" /> */}
     </div>
   );
 }
-// title="image 1" 
 function Imagelink({num}) {
   const links=[
     "https://i.imgur.com/lxzSeAZ.gif",
     "https://i.imgur.com/No8wupF.gif"
   ]
   return (
-    <div id="imglink">
-      <img src={links[num]}></img>
+    <div><a href={"/data/"+num+"/"} id="imglink">
+      <img src={links[num-1]}></img>
       <p>image {num}</p>
-    </div>
+    </a></div>
   );
 }
