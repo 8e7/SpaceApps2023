@@ -14,3 +14,6 @@
 #demoimg > #theimage {
   margin:0;
 }
+#mousepath {
+  position: absolute;
+}
