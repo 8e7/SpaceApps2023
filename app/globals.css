@@ -11,10 +11,7 @@
 
   color: var(--textcolor);
   /* font-family: "Times New Roman", Times, serif; */
-  /* border-top: 1px solid #000;
-  border-right: 1px dashed #555;
-  border-bottom: 1px dotted #5d2424;
-  border-left: 1px double #333; */
+  /* border:1px solid var(--textcolor); */
 }
 
 
@@ -34,12 +31,11 @@ body {
 }
 #backtomain {
   border-radius: 7px;
-  margin:0.3vw;
   margin-top: 1vw;
   background-color: var(--boxcolor);
 }
 #backtomain > a > p {
-  margin:1.05%;
+  margin-left:1.05%;
 }
 #main {
   display: grid;

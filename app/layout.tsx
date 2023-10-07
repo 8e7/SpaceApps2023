@@ -13,7 +13,7 @@ function Titlebar() {
   return (
     <div id="titlebar">
       <h1>Ten Hours Of Space Music For Sleeping</h1>
-      <h4>Authors: ...</h4>
+      <h4>Authors : ...</h4>
     </div>
   );
 }
@@ -27,11 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <Titlebar /> */}
       <body className={inter.className}>
         <Titlebar />
         {children}
-        {/* <Footerbar /> */}
       </body>
     </html>
   )
