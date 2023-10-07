@@ -45,7 +45,7 @@ function Imagelink({num}) {
   ]
   return (
     <div><a href={"/data/"+num+"/"} id="imglink">
-      <img src={links[num-1]}></img>
+      <img src={"/image/"+num+".jpg"}></img>
       <p>image {num}.</p>
     </a></div>
   );

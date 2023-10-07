@@ -91,7 +91,7 @@ export default function Page() {
   const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }} onMouseDown={mousedown} onMouseUp={mouseup} onMouseMove={mousemove}
     onMouseLeave={mouseup}
     onDragStart={(e) => {e.preventDefault();}} >
-      <Image src={pic} alt="Space image" onLoadingComplete={(e) => {
+      <Image src='/image/01.jpg' fill={true} alt="Space image" onLoadingComplete={(e) => {
         const rect = e.getBoundingClientRect();
         setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
       }}/>
