@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
 import Image from 'next/image'
-import pic from './milky-way-2695569_1280.jpg'
 import { InferGetStaticPropsType, GetStaticProps } from 'next'
 import jsonData from './m31pro.json'
 import * as music from '../../library/music.mjs'
@@ -20,7 +19,7 @@ function SpaceImage() {
   const [loadedSamples, setLoadedSamples] = useState(false);
   const [mousePos, setMousePos] = useState([0, 0]);  
   const [mouseHold, setMouseHold] = useState(false);
-  const [imageSize, setImageSize] = useState();
+  const [imageSize, setImageSize] = useState([500, 800]);
   const gridSize = [100, 100]; //this should be same as data size
 
   const [gridData, setGridData] = useState(() => {
@@ -43,36 +42,38 @@ function SpaceImage() {
   const [synths, setSynths] = useState(); //each synth is a sampler
 
   useEffect(() => { 
-    if (initMusic === true) {
-      
-      const cello = new Tone.Sampler({
-          urls: {A2: "cello_A2.mp3"},baseUrl: "/samples/",
+    if (initMusic === true && loadedSamples == false) {
+      let build = async () => {
+        const cello = new Tone.Sampler({
+          urls: { A2: "cello_A2.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-      const piano = new Tone.Sampler({
-          urls: {C4: "piano_C4.mp3"},baseUrl: "/samples/",
+        const piano = new Tone.Sampler({
+          urls: { C4: "piano_C4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-      const violin = new Tone.Sampler({
-          urls: {A4: "violin_A4.mp3"},baseUrl: "/samples/",
+        const violin = new Tone.Sampler({
+          urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-      const flute = new Tone.Sampler({
-          urls: {A5: "flute_A5.mp3"},baseUrl: "/samples/",
+        const flute = new Tone.Sampler({
+          urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-      let newSynths = [cello, piano, violin, flute];
-      /*
-      const newSynths = sample_files.map(({pitch, fileName}) => {
-        const sampler = new Tone.Sampler({
-          urls: {
-            [pitch]: fileName
-          },
-          baseUrl: "/samples/",
-        }).toDestination();
-        return sampler;
-      });
-      */
-      setLoadedSamples(true);
-      console.log(newSynths);
-      setSynths(newSynths);
-      Tone.start();
+        let newSynths = [cello, piano, violin, flute];
+        /*
+        const newSynths = sample_files.map(({pitch, fileName}) => {
+          const sampler = new Tone.Sampler({
+            urls: {
+              [pitch]: fileName
+            },
+            baseUrl: "/samples/",
+          }).toDestination();
+          return sampler;
+        });
+        */
+        await Tone.start();
+        setLoadedSamples(true);
+        console.log(newSynths);
+        setSynths(newSynths);
+      }
+      build()
     }
   }, [initMusic]);
 
@@ -86,7 +87,7 @@ function SpaceImage() {
     setMouseHold(false);
     console.log(path);
     if (loadedSamples === true) {
-      music.play_music(synths[0]);
+      music.play_music(synths[1]);
     }
     setPath(Array(0)); //clears path
   }
@@ -104,13 +105,13 @@ function SpaceImage() {
       setPath(nextPath);
     }
   }
-  const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }} 
+  const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }}>
+    <Image src='/image/01.jpg' width={500} height={800} alt="image 1"
     onMouseDown={mousedown} 
     onMouseUp={mouseup} 
     onMouseMove={mousemove}
     onMouseLeave={mouseup}
-    onDragStart={(e) => {e.preventDefault();}} >
-    <img src='/image/01.jpg'></img>
+    onDragStart={(e) => {e.preventDefault();}} />
   </div>);
   
   return (
