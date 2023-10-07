@@ -14,7 +14,6 @@
   /* border:1px solid var(--textcolor); */
 }
 
-
 body {
   /* font-family: Arial, Helvetica, sans-serif; */
   background-color: var(--backgroundcolor);
@@ -27,7 +26,8 @@ body {
   background-color: var(--boxcolor);
 }
 #titlebar > * {
-  margin:1.05%;
+  margin:0%;
+  padding: 1%;
 }
 #main {
   display: grid;

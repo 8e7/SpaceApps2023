@@ -15,7 +15,7 @@ const sample_files = [
   { pitch: 'A5', filename: 'flute_A5.mp3' },
   // Add more tuples as needed
 ];
-export default function Page() {
+function SpaceImage() {
   const [initMusic, setInitMusic] = useState(false);
   const [loadedSamples, setLoadedSamples] = useState(false);
   const [mousePos, setMousePos] = useState([0, 0]);  
@@ -104,18 +104,36 @@ export default function Page() {
       setPath(nextPath);
     }
   }
-  const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }} onMouseDown={mousedown} onMouseUp={mouseup} onMouseMove={mousemove}
+  const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }} 
+    onMouseDown={mousedown} 
+    onMouseUp={mouseup} 
+    onMouseMove={mousemove}
     onMouseLeave={mouseup}
     onDragStart={(e) => {e.preventDefault();}} >
-      <Image src='/image/01.jpg' fill={true} alt="Space image" onLoadingComplete={(e) => {
-        const rect = e.getBoundingClientRect();
-        setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
-      }}/>
-    </div>);
+    <img src='/image/01.jpg'></img>
+  </div>);
   
   return (
-    <>
+    <div id="image-display-box">
       {main_img}
-    </>
-  )
+    </div>
+  );
+}
+
+function HowtoPlay(){
+  return (
+    <div id="howtoplay">
+      <h3>play guide</h3>
+      <p>how to play</p>
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <div id="demo-main">
+      <SpaceImage />
+      <HowtoPlay />
+    </div>
+  );
 }

@@ -1,19 +1,45 @@
 #backtomain {
   border-radius: 7px;
-  margin-top: 1vw;
+
+  margin: 0.3vw;
   background-color: var(--boxcolor);
 }
 #backtomain > a > * {
-  margin-left:1%;
+  padding:1%;
 }
-#demoimg {
-  border-radius: 7px;
-  margin:0.3vw;
-  background-color: var(--backgroundcolor);
-}
-#demoimg > #theimage {
+#sub-body {
   margin:0;
 }
-#mousepath {
-  position: absolute;
+#image-display-box {
+  margin:0.3vw;
+  padding: 0;
+}
+#image-display-box > * > * {
+  margin:0;
+  border-radius: 5px;
+}
+/* body {
+  border:1px solid var(--textcolor);
+} */
+#demo-main {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin:0;
+  /* border:1px solid var(--textcolor); */
+  /* border-radius: 7px; */
+  /* margin:0.3vw; */
+  background-color: var(--backgroundcolor);
+}
+
+#demo-main > * {
+  border-radius: 7px;
+  background-color: var(--boxcolor);
+  margin:0.3vw;
+  padding: 0.3vw;
+}
+
+
+#howtoplay > * {
+  margin:0.3vw;
+  padding: 1%;
 }

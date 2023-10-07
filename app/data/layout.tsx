@@ -26,9 +26,9 @@ export default function DataLayout({
   children: React.ReactNode
 }) {
   return (
-    <div id="demoimg"><div id="theimage">
+    <div id="sub-body">
       {children}
       <Footerbar />
-    </div></div>
+    </div>
   );
 }

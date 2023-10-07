@@ -38,11 +38,6 @@ function Demostration() {
   );
 }
 function Imagelink({num}) {
-  const links=[
-    "/pic01.jpg",
-    "https://i.imgur.com/lxzSeAZ.gif",
-    "https://i.imgur.com/No8wupF.gif"
-  ]
   return (
     <div><a href={"/data/"+num+"/"} id="imglink">
       <img src={"/image/"+num+".jpg"}></img>
