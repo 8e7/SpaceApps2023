@@ -8,7 +8,6 @@ import jsonData from './m31pro.json'
 import * as music from '../../library/music.mjs'
 import * as Tone from 'tone'
 
-
 export default function Page() {
   const [initMusic, setInitMusic] = useState(false);
   const [mousePos, setMousePos] = useState([0, 0]);  
@@ -33,12 +32,18 @@ export default function Page() {
   });
 
   const [path, setPath] = useState(Array(0));
-  const [synth, setSynth] = useState();
+  const [synths, setSynths] = useState(); //each synth is a sampler
 
   useEffect(() => { 
     if (initMusic === true) {
-      const newSynth = new Tone.PolySynth().toDestination();
-      setSynth(newSynth);
+
+      const newSynths = new Tone.Sampler({
+        urls: {
+          A2: "cello_A2.mp3"
+        },
+        baseUrl: "/samples/"
+      }).toDestination();
+      setSampler(newSampler);
       Tone.start();
     }
   }, [initMusic]);
@@ -52,7 +57,7 @@ export default function Page() {
   function mouseup(e) {
     setMouseHold(false);
     console.log(path);
-    music.play_music(synth);
+    music.play_music(sampler);
     setPath(Array(0)); //clears path
   }
   function mousemove(e) {
