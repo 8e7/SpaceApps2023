@@ -1,65 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Define a CSS rule for your div element */
-* {
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
-  --backgroundcolor: #ebf5fe;
-  --boxcolor: #ffffff;
-  --textcolor: #00192e;
-
-  color: var(--textcolor);
-  /* font-family: "Times New Roman", Times, serif; */
-  /* border:1px solid var(--textcolor); */
-}
-
-
-body {
-  /* font-family: Arial, Helvetica, sans-serif; */
-  background-color: var(--backgroundcolor);
-  margin: 3%;
-  padding: 0;
-}
-#titlebar {
-  border-radius: 7px;
-  margin:0.3vw;
-  background-color: var(--boxcolor);
-}
-#titlebar > * {
-  margin:1.05%;
-}
 #backtomain {
   border-radius: 7px;
   margin-top: 1vw;
   background-color: var(--boxcolor);
 }
-#backtomain > a > p {
-  margin-left:2%;
-}
-#main {
-  display: grid;
-  grid-template-columns: 70% 30%;
-}
-#description {
-  background-color: var(--boxcolor);
-  border-radius: 7px;
-  margin:0.3vw;
-}
-#description > * {
-  /* color: rgb(85, 26, 130); */
-  
-  margin:1.5%;
-  /* width: 320px; */
-  
-}
-#demo {
-  background-color: var(--boxcolor);
-  border-radius: 7px;
-  margin:0.3vw;
-}
-#demo > * {
-  margin:3.5%;
+#backtomain > a > * {
+  margin-left:1%;
 }
 #demoimg {
   border-radius: 7px;
@@ -69,66 +14,3 @@ body {
 #demoimg > #theimage {
   margin:0;
 }
-h1 {
-  
-  margin-top: 0;
-  font-size: 40px;
-  font-weight: 700;
-  font-family:  Times, serif;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
-h3 {
-  font-size: 18px;
-}
-
-a {
-  margin:0;
-  padding:0;
-}
-
-h4 {
-  margin-top: 0;
-  font-size: 16px;
-}
-
-h5 {
-  margin-top: 0;
-  font-size: 14px;
-}
-
-h6 {
-  margin-top: 0;
-  font-size: 12px;
-}
-
-p {
-  font-weight: 300;
-  /* margin:1.5%; */
-}
-
-Image {
-  border-radius: 10px;
-  width: 100%;
-  box-sizing: content-box;
-}
-img {
-  border-radius: 10px;
-  width: 100%;
-  box-sizing: content-box;
-}
-code {
-  font-size: 1.2em;
-}
-
-ul {
-  padding-inline-start: 20px;
-}
-
-* {
-  box-sizing: border-box;
-}
-

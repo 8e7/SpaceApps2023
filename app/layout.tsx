@@ -13,17 +13,9 @@ function Titlebar() {
   return (
     <div id="titlebar">
       <h1>Ten Hours Of Space Music For Sleeping</h1>
-      <h4>Authors: ...</h4>
+      <h4>Authors : ...</h4>
     </div>
   );
-}
-
-function Footerbar() {
-  return (
-    <div id="backtomain"><a href="..">
-      <p>&#8592; Back to main page</p>
-    </a></div>
-  )
 }
 
 export default function RootLayout({
@@ -33,11 +25,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <Titlebar /> */}
+      <head>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet"></link>
+      </head>
       <body className={inter.className}>
         <Titlebar />
         {children}
-        {/* <Footerbar /> */}
       </body>
     </html>
   )

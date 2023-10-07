@@ -17,4 +17,5 @@ const notes = [
 export function play_music(synth) {
     synth.triggerAttackRelease(["C4", "E4", "A4"], 1);
 }
+
 //play() // call this when someone interacts with your program.
