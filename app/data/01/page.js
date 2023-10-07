@@ -8,8 +8,16 @@ import jsonData from './m31pro.json'
 import * as music from '../../library/music.mjs'
 import * as Tone from 'tone'
 
+const sample_files = [
+  { pitch: 'A2', filename: 'cello_A2.mp3' },
+  { pitch: 'C4', filename: 'piano_C4.mp3' },
+  { pitch: 'A4', filename: 'violin_A4.mp3' },
+  { pitch: 'A5', filename: 'flute_A5.mp3' },
+  // Add more tuples as needed
+];
 export default function Page() {
   const [initMusic, setInitMusic] = useState(false);
+  const [loadedSamples, setLoadedSamples] = useState(false);
   const [mousePos, setMousePos] = useState([0, 0]);  
   const [mouseHold, setMouseHold] = useState(false);
   const [imageSize, setImageSize] = useState();
@@ -36,28 +44,34 @@ export default function Page() {
 
   useEffect(() => { 
     if (initMusic === true) {
-
-      const newSynths = new Tone.Sampler({
-        urls: {
-          A2: "cello_A2.mp3"
-        },
-        baseUrl: "/samples/"
-      }).toDestination();
-      setSampler(newSampler);
+      const newSynths = sample_files.map(({pitch, fileName}) => {
+        const sampler = new Tone.Sampler({
+          urls: {
+            [pitch]: fileName
+          },
+          baseUrl: "/samples",
+          onload: () => {setLoadedSamples(true);}
+        }).toDestination();
+        return sampler;
+      });
+      console.log(newSynths);
+      setSynths(newSynths);
       Tone.start();
     }
   }, [initMusic]);
 
   function mousedown(e){
+    setMouseHold(true);
     if (initMusic === false) {
       setInitMusic(true);
     }
-    setMouseHold(true);
   }
   function mouseup(e) {
     setMouseHold(false);
     console.log(path);
-    music.play_music(sampler);
+    if (loadedSamples === true) {
+      music.play_music(synths[0]);
+    }
     setPath(Array(0)); //clears path
   }
   function mousemove(e) {
