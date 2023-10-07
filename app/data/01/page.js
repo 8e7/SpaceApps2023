@@ -44,16 +44,32 @@ export default function Page() {
 
   useEffect(() => { 
     if (initMusic === true) {
+      
+      const cello = new Tone.Sampler({
+          urls: {A2: "cello_A2.mp3"},baseUrl: "/samples/",
+        }).toDestination();
+      const piano = new Tone.Sampler({
+          urls: {C4: "piano_C4.mp3"},baseUrl: "/samples/",
+        }).toDestination();
+      const violin = new Tone.Sampler({
+          urls: {A4: "violin_A4.mp3"},baseUrl: "/samples/",
+        }).toDestination();
+      const flute = new Tone.Sampler({
+          urls: {A5: "flute_A5.mp3"},baseUrl: "/samples/",
+        }).toDestination();
+      let newSynths = [cello, piano, violin, flute];
+      /*
       const newSynths = sample_files.map(({pitch, fileName}) => {
         const sampler = new Tone.Sampler({
           urls: {
             [pitch]: fileName
           },
-          baseUrl: "/samples",
-          onload: () => {setLoadedSamples(true);}
+          baseUrl: "/samples/",
         }).toDestination();
         return sampler;
       });
+      */
+      setLoadedSamples(true);
       console.log(newSynths);
       setSynths(newSynths);
       Tone.start();
