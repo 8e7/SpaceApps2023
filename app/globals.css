@@ -2,30 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Define a CSS rule for your div element */
 * {
-  box-sizing: border-box;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  --backgroundcolor: #ebf5fe;
+  --boxcolor: #ffffff;
+  --textcolor: #00172b;
+
+  color: var(--textcolor);
+  /* font-family: "Times New Roman", Times, serif; */
+  /* border-top: 1px solid #000;
+  border-right: 1px dashed #555;
+  border-bottom: 1px dotted #999;
+  border-left: 1px double #333; */
 }
+
 
 body {
-  font-family: sans-serif;
-  margin: 20px;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  background-color: var(--backgroundcolor);
+  margin: 3%;
   padding: 0;
 }
-
+#titlebar {
+  border-radius: 7px;
+  margin:0.3vw;
+  background-color: var(--boxcolor);
+}
+#titlebar > * {
+  margin:1.05%;
+}
+#main {
+  
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+#description {
+  background-color: var(--boxcolor);
+  border-radius: 7px;
+  margin:0.3vw;
+}
+#description > * {
+  /* color: rgb(85, 26, 130); */
+  
+  margin:1.5%;
+  /* width: 320px; */
+  
+}
+#demo {
+  background-color: var(--boxcolor);
+  border-radius: 7px;
+  margin:0.3vw;
+}
+#demo > * {
+  margin:3.5%;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  /* margin-left: 330px; */
+  /* width: 110px; */
+}
 h1 {
+  
   margin-top: 0;
-  font-size: 22px;
+  font-size: 40px;
+  font-weight: 700;
+  font-family:  Times, serif;
 }
 
 h2 {
   margin-top: 0;
   font-size: 20px;
 }
-
 h3 {
-  margin-top: 0;
   font-size: 18px;
 }
+
 
 h4 {
   margin-top: 0;
@@ -42,6 +92,17 @@ h6 {
   font-size: 12px;
 }
 
+p {
+  font-weight: 300;
+  /* margin:1.5%; */
+}
+
+img {
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: content-box;
+}
+
 code {
   font-size: 1.2em;
 }
@@ -52,11 +113,5 @@ ul {
 
 * {
   box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
 }
 
