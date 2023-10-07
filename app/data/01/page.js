@@ -5,13 +5,7 @@ import pic from './milky-way-2695569_1280.jpg'
 import { InferGetStaticPropsType, GetStaticProps } from 'next'
 import jsonData from './m31pro.json'
 
-function Footerbar() {
-  return (
-    <div id="backtomain"><a href="..">
-      <p>&#8592; Back to main page</p>
-    </a></div>
-  )
-}
+
 
 export default function Page() {
   const [mousePos, setMousePos] = useState([0, 0]);  
@@ -58,9 +52,8 @@ export default function Page() {
     </div>);
   
   return (
-    <div id="demoimg">
-      <div id="theimage">{main_img}</div>
-      <Footerbar />
-    </div>
+    <>
+      {main_img}
+    </>
   )
 }
