@@ -1,6 +1,5 @@
 "use client";
-import { useState } from 'react'
-import Image from 'next/image'
+import React from 'react';
 
 export default function Home() {
   return (
@@ -11,19 +10,18 @@ export default function Home() {
   );
 }
 
-
-function Description() {
+function Description({ fileContent }) {
   return (
     <div id="description">
       <h2>Idea</h2>
       <p>
-The webapp shows a preloaded image of space, the user interacts with the image by dragging the mouse to form a path, then audio is played according to a traversal of the path.
+  The webapp shows a preloaded image of space, the user interacts with the image by dragging the mouse to form a path, then audio is played according to a traversal of the path.
       </p>
       <p>
-Each pixel has data on the intensities of certain frequencies. Our current idea is to take the strongest frequency bands, map them into musical notes, and create a chord. 
+  Each pixel has data on the intensities of certain frequencies. Our current idea is to take the strongest frequency bands, map them into musical notes, and create a chord. 
       </p>
       <p>
-There will be some points (stars) to consider. The path has to find the closest point(s) to form the sound that is represented. 
+  There will be some points (stars) to consider. The path has to find the closest point(s) to form the sound that is represented. 
       </p>
     </div>
   );

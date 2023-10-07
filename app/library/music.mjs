@@ -7,6 +7,10 @@ import * as Tone from 'tone'
 //TODO: instantiate the synth into useeffect
 const synth = new Tone.PolySynth().toDestination();
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const notes = [
     { pitch: "C4", timing: 0 },
     //{ pitch: "D4", timing: 0 },
@@ -16,7 +20,5 @@ const notes = [
 ];
 
 export function play_music() {
-    synth.triggerAttackRelease(["C4", "E4", "A4"], 1);
+    synth.triggerAttackRelease(["C4", "E4", "G4", "B4"], 1);
 }
-
-//play() // call this when someone interacts with your program.

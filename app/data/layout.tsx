@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 function Footerbar() {
   return (
     <div id="backtomain"><a href="..">
-      <p>&#8592; Back to main page</p>
+      <h4>&#8592; Back to main page</h4>
     </a></div>
   )
 }
@@ -32,15 +32,3 @@ export default function DataLayout({
     </div></div>
   );
 }
-
-
-
-// export default function Layout({ children }) {
-//   return (
-//     <>
-//       <Titlebar />
-//       <main>{children}</main>
-//       {/* <Footer /> */}
-//     </>
-//   )
-// }
