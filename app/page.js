@@ -5,7 +5,6 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <body>
-      <Titlebar />
       <div id="main">
         <Description />
         <Demostration />
@@ -14,14 +13,7 @@ export default function Home() {
   );
 }
 
-function Titlebar() {
-  return (
-    <div id="titlebar">
-      <h1>Ten Hours Of Space Music For Sleeping</h1>
-      <h4>Authors: ...</h4>
-    </div>
-  );
-}
+
 function Description() {
   return (
     <div id="description">
