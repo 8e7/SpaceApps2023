@@ -5,6 +5,13 @@ import pic from './milky-way-2695569_1280.jpg'
 import { InferGetStaticPropsType, GetStaticProps } from 'next'
 import jsonData from './m31pro.json'
 
+function Footerbar() {
+  return (
+    <div id="backtomain"><a href="..">
+      <p>&#8592; Back to main page</p>
+    </a></div>
+  )
+}
 
 export default function Page() {
   const [mousePos, setMousePos] = useState([0, 0]);  
@@ -42,8 +49,8 @@ export default function Page() {
     }
   }
   const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }} onMouseDown={mousedown} onMouseUp={mouseup} onMouseMove={mousemove}
-  onMouseLeave={mouseup}
-  onDragStart={(e) => {e.preventDefault();}} >
+    onMouseLeave={mouseup}
+    onDragStart={(e) => {e.preventDefault();}} >
       <Image src={pic} alt="Space image" onLoadingComplete={(e) => {
         const rect = e.getBoundingClientRect();
         setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
@@ -51,8 +58,9 @@ export default function Page() {
     </div>);
   
   return (
-    <>
-    {main_img}
-    </> 
+    <div id="demoimg">
+      <div id="theimage">{main_img}</div>
+      <Footerbar />
+    </div>
   )
 }

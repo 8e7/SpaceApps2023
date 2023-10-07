@@ -18,6 +18,8 @@ function Titlebar() {
   );
 }
 
+
+
 export default function RootLayout({
   children,
 }: {
@@ -29,6 +31,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Titlebar />
         {children}
+        {/* <Footerbar /> */}
       </body>
     </html>
   )
