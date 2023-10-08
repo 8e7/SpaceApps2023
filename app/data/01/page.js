@@ -8,7 +8,7 @@ import * as Tone from 'tone'
 import useSWR from 'swr';
 
 
-const gridSize = [100, 100]; //this should be same as data size
+const gridSize = [438, 438]; //this should be same as data size
 const sample_files = [
   { pitch: 'A2', filename: 'cello_A2.mp3' },
   { pitch: 'C4', filename: 'piano_C4.mp3' },
@@ -33,18 +33,25 @@ function SpaceImage({gridData}) {
         const cello = new Tone.Sampler({
           urls: { A2: "cello_A2.mp3" }, baseUrl: "/samples/",
         }).toDestination();
+        cello.volume.value = +5;
+
         let cellos = [cello, cello, cello, cello];
         const piano = new Tone.Sampler({
           urls: { C4: "piano_C4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
+        piano.volume.value = -10;
+
         let pianos = [piano, piano, piano, piano];
         const violin = new Tone.Sampler({
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
+        violin.volume.value = +5;
+
         let violins = [violin, violin, violin, violin];
         const flute = new Tone.Sampler({
           urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
         }).toDestination();
+        flute.volume.value = +5;
         let flutes = [flute, flute, flute, flute];
         let newSynths = [cellos, pianos, violins, flutes];
         await Tone.start();
@@ -110,8 +117,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { data , error } = useSWR('/data/01.json', fetcher)
-  
+  const { data , error } = useSWR('/data/m51_1.json', fetcher)
   if (dataLoaded == false && (!error) && data) {
     setDataLoaded(true);
     const [xSize, ySize] = gridSize;
@@ -119,7 +125,7 @@ export default function Home() {
     for (var index in data) {
       let elem = data[index];
       if (elem.px >= 0 && elem.px < xSize && elem.py >= 0 && elem.py < ySize) {
-        array2D[elem.px][elem.py] = [elem.w1n, elem.w2n, 0, elem.w4n];
+        array2D[elem.px][elem.py] = [elem.w1n, elem.w2n, elem.w3n, elem.w4n, elem.wn_ave];
       }
     }
     setGridData(array2D);
