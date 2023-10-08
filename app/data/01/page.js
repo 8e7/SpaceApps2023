@@ -7,7 +7,6 @@ import * as music from '../../library/music.mjs'
 import * as Tone from 'tone'
 import useSWR from 'swr';
 
-
 const gridSize = [438, 438]; //this should be same as data size
 const sample_files = [
   { pitch: 'A2', filename: 'cello_A2.mp3' },
@@ -44,7 +43,6 @@ function SpaceImage({gridData}) {
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         violin.volume.value = music.default_volumes[2];
-
         let violins = [violin, violin, violin, violin];
 
         const flute = new Tone.Sampler({
@@ -52,6 +50,7 @@ function SpaceImage({gridData}) {
         }).toDestination();
         violin.volume.value = music.default_volumes[3];
         let flutes = [flute, flute, flute, flute];
+
         let newSynths = [cellos, pianos, violins, flutes];
         await Tone.start();
         setLoadedSamples(true);
@@ -101,17 +100,17 @@ function SpaceImage({gridData}) {
     }
   }
   return (
-    <div id="image-display-box"><div id="detect-box"
+    <div id = "image-display-box"><div id = "detect-box"
     onMouseDown={mousedown} 
     onMouseUp={mouseup}
     onMouseMove={mousemove}
     onMouseLeave={mouseup}
     onDragStart={(e) => {e.preventDefault();}}>
-      {clipath.map((poss,index)=>{
-        let [x,y]=poss;
-        return (<div id="mouseicon" key={index} style={{top: y, left: x}}></div>);
+      {clipath.map((poss,index) => {
+        let [x, y] = poss;
+        return (<div id = "mouseicon" key = {index} style = {{top: y, left: x}}></div>);
       })}
-      <img src='/image/01.jpg'></img>
+      <img src = '/image/01.jpg'></img>
     </div></div>
   );
 }
@@ -120,7 +119,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { data , error } = useSWR('/data/version2.json', fetcher)
+  const { data, error } = useSWR('/data/version2.json', fetcher)
   if (dataLoaded === false && (!error) && data) {
     setDataLoaded(true);
     const [xSize, ySize] = gridSize;
