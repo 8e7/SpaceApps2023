@@ -6,6 +6,12 @@ export function play_music(synth) {
     synth.triggerAttackRelease(["C4", "E4", "A4"], 1);
 }
 
+// export 
+
+export function GetCurId(){
+    return ( [-1,0,0]);
+    // return cur_mouse;
+}
 //const root_notes = ["C3", "G3", "E4", "B4"];
 
 export const default_volumes = [+5, +5, +5, +5];
@@ -19,7 +25,7 @@ function convert_note(x) {
     if (oct <= 0) {
         console.log(oct);
     }
-    let res = note+oct;
+    let res = note + oct;
     return res;
 }
 
@@ -28,11 +34,14 @@ const maximum_hold_time = 4;
 export function play_path(synths, path, grid, gridSize) {
     let len = path.length;
     if (len === 0 || !grid) {
+        
         return;
     }
     console.log("Playing");
+    Tone.Transport.clear(onBeat);
     Tone.Transport.stop();
     Tone.Transport.cancel();
+    // cur_mouse=[-1,0,0];
     let [n, m] = gridSize;
     let prev_pos = [];
     let last_times = Array(4, 0);
@@ -43,7 +52,6 @@ export function play_path(synths, path, grid, gridSize) {
         Tone.Transport.bpm.value = new_bpm;
     };
 
-    //first sync instruments to Tone.Transport
     for (let i = 0; i < 4; i++) {
         synths[i].sync();
     }    
@@ -52,6 +60,7 @@ export function play_path(synths, path, grid, gridSize) {
         if (!path[i]) continue;
         let [x, y] = path[i];
         if (!grid[x] || !grid[x][y]) continue;
+        // cur_mouse=[i,cliPath[i][0],cliPath[i][1]];
         let newNote = true;
         if (i > 0) {
             //const bpm_multiplier = 2;
@@ -62,8 +71,6 @@ export function play_path(synths, path, grid, gridSize) {
             } else {
                 prev_pos = path[i];
             }
-            //let speed = Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
-            //Tone.Transport.scheduleOnce(change_bpm(50 + speed * bpm_multiplier), total_time);
         } else {
             prev_pos = path[i];
         }
@@ -103,8 +110,12 @@ export function play_path(synths, path, grid, gridSize) {
 
             total_time += Tone.Time("4n").toSeconds();
         }
+        // cur_mouse=[-1,0,0];
     }
+    Tone.Transport.scheduleRepeat(onBeat,"64n");
     Tone.Transport.start();
+    
+    // TonBeat(time,cliPath);
 }
 
 //play() // call this when someone interacts with your program.
