@@ -6,9 +6,22 @@ export function play_music(synth) {
     synth.triggerAttackRelease(["C4", "E4", "A4"], 1);
 }
 
-const root_notes = ["C2", "G3", "D4", "A4"];
+const root_notes = ["C3", "G3", "E4", "B4"];
 
-export function play_path(synths, path, grid, gridSize, speed) {
+export const default_volumes = [+5, -15, +5, +5];
+export const max_volumes = [+15, 0, +15, +15];
+
+const scale = ["C", "D", "E", "F", "G", "A", "B"];
+function convert_note(x) {
+    const scale_num = scale.length;
+    let note = scale[x % scale_num];
+    let oct = x / scale_num + 1;
+    let res = note+oct;
+    return res;
+}
+
+const minimum_move_distance = 4;
+export function play_path(synths, path, grid, gridSize) {
     let len = path.length;
     if (len === 0) {
         return;
@@ -17,31 +30,61 @@ export function play_path(synths, path, grid, gridSize, speed) {
     Tone.Transport.stop();
     Tone.Transport.cancel();
     let [n, m] = gridSize;
-    let total_time = 0;
+    let prev_pos = [];
+    let last_notes = Array(4, null);
+    let total_time = Tone.Time(0);
     
     let change_bpm = (new_bpm) =>{
         Tone.Transport.bpm.value = new_bpm;
     };
 
-    
+    //first sync instruments to Tone.Transport
+    for (let i = 0;i < 4;i++) {
+        synths[2][i].sync();
+    }    
     for (let i = 0; i < len; i++) {
         let [x, y] = path[i];
-        /* change bpm
+        let newNote = true;
         if (i) {
             const bpm_multiplier = 2;
-            let speed = Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
-            Tone.Transport.scheduleOnce(change_bpm(50 + speed * bpm_multiplier), total_time);
-            //change_bpm.start(total_time); 
+            let dis_to_prev = Math.hypot(path[i][0] - prev_pos[0], path[i][1] - prev_pos[1]);
+            if (dis_to_prev < minimum_move_distance) {
+                newNote = false; 
+            } else {
+                prev_pos = path[i];
+            }
+            //let speed = Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
+            //Tone.Transport.scheduleOnce(change_bpm(50 + speed * bpm_multiplier), total_time);
+        } else {
+            prev_pos = path[i];
         }
-        */
-        
-        let wave = grid[x][y].slice(0, 4);
-        let intensity = grid[x][y][4];
+        if (newNote) {
+            let notes = grid[x][y].slice(0, 4);
+            let volumes = [grid[x][y][4], grid[x][y][5], grid[x][y][5], grid[x][y][5]];
+            //console.log(notes);
+            //console.log(volumes);
 
-        const maxValue = Math.max(...wave);
-        const maxInd = wave.indexOf(maxValue);
-        Tone.Transport.scheduleOnce(() => {synths[maxInd][0].triggerAttackRelease(root_notes[maxInd], "8n")}, total_time);
-        total_time += Tone.Time("8n").toSeconds();
+            for (let i = 0; i < 4; i++) {
+                if (notes[i] != last_notes[i]) {
+                    if (last_notes[i]) {
+                        Tone.Transport.scheduleOnce(() => {synths[2][i].triggerRelease()}, total_time-0.01);
+                    }
+                    last_notes[i] = notes[i]
+                    if (notes[i]) {
+                        Tone.Transport.scheduleOnce(() => { synths[2][i].triggerAttack(convert_note(notes[i])) }, total_time);
+                    }
+                }
+                if (!notes[i]) continue;
+
+                let intensity = volumes[i] - 60;
+                intensity = Math.min(intensity, max_volumes[i]);
+                Tone.Transport.scheduleOnce(() => {
+                    synths[2][i].volume.value = intensity;
+                }, total_time);
+            }
+
+            total_time += Tone.Time("4n").toSeconds();
+        }
     }
     Tone.Transport.start();
 }

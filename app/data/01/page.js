@@ -33,25 +33,25 @@ function SpaceImage({gridData}) {
         const cello = new Tone.Sampler({
           urls: { A2: "cello_A2.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-        cello.volume.value = +5;
-
+        cello.volume.value = music.default_volumes[0];
         let cellos = [cello, cello, cello, cello];
+
         const piano = new Tone.Sampler({
           urls: { C4: "piano_C4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-        piano.volume.value = -10;
-
+        piano.volume.value = music.default_volumes[1];
         let pianos = [piano, piano, piano, piano];
+
         const violin = new Tone.Sampler({
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-        violin.volume.value = +5;
-
+        violin.volume.value = music.default_volumes[2];
         let violins = [violin, violin, violin, violin];
+
         const flute = new Tone.Sampler({
           urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-        flute.volume.value = +5;
+        violin.volume.value = music.default_volumes[3];
         let flutes = [flute, flute, flute, flute];
         let newSynths = [cellos, pianos, violins, flutes];
         await Tone.start();
@@ -73,7 +73,7 @@ function SpaceImage({gridData}) {
     setMouseHold(false);
     console.log(path);
     if (loadedSamples === true) {
-      console.log(gridData);
+      //console.log(gridData);
       music.play_path(synths, path, gridData, gridSize);
     }
     setPath(Array(0)); //clears path
@@ -117,7 +117,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { data , error } = useSWR('/data/m51_1.json', fetcher)
+  const { data , error } = useSWR('/data/version1.json', fetcher)
   if (dataLoaded == false && (!error) && data) {
     setDataLoaded(true);
     const [xSize, ySize] = gridSize;
@@ -125,7 +125,7 @@ export default function Home() {
     for (var index in data) {
       let elem = data[index];
       if (elem.px >= 0 && elem.px < xSize && elem.py >= 0 && elem.py < ySize) {
-        array2D[elem.px][elem.py] = [elem.w1n, elem.w2n, elem.w3n, elem.w4n, elem.wn_ave];
+        array2D[elem.px][elem.py] = [elem.base_note, elem.chord_note[0], elem.chord_note[1], elem.chord_note[2], elem.vol_bass_note, elem.vol_chord_not];
       }
     }
     setGridData(array2D);
