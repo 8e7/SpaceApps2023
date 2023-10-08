@@ -8,8 +8,8 @@ export function play_music(synth) {
 
 //const root_notes = ["C3", "G3", "E4", "B4"];
 
-export const default_volumes = [+5, -15, +5, +5];
-export const max_volumes = [+15, 0, +10, +15];
+export const default_volumes = [+5, +5, +5, +5];
+export const max_volumes = [+15, +15, +10, +10];
 
 const scale = ["C", "D", "E", "F", "G", "A", "B"];
 function convert_note(x) {
@@ -24,6 +24,7 @@ function convert_note(x) {
 }
 
 const minimum_move_distance = 4;
+const maximum_hold_time = 4;
 export function play_path(synths, path, grid, gridSize) {
     let len = path.length;
     if (len === 0 || !grid) {
@@ -34,6 +35,7 @@ export function play_path(synths, path, grid, gridSize) {
     Tone.Transport.cancel();
     let [n, m] = gridSize;
     let prev_pos = [];
+    let last_times = Array(4, 0);
     let last_notes = Array(4, null);
     let total_time = Tone.Time(0);
     
@@ -43,15 +45,16 @@ export function play_path(synths, path, grid, gridSize) {
 
     //first sync instruments to Tone.Transport
     for (let i = 0; i < 4; i++) {
-        synths[2][i].sync();
+        synths[i].sync();
     }    
+    let note_cnt = 0;
     for (let i = 0; i < len; i++) {
         if (!path[i]) continue;
         let [x, y] = path[i];
         if (!grid[x] || !grid[x][y]) continue;
         let newNote = true;
-        if (i) {
-            const bpm_multiplier = 2;
+        if (i > 0) {
+            //const bpm_multiplier = 2;
             let dis_to_prev = Math.hypot(path[i][0] - prev_pos[0], path[i][1] - prev_pos[1]);
             
             if (dis_to_prev < minimum_move_distance) {
@@ -65,29 +68,36 @@ export function play_path(synths, path, grid, gridSize) {
             prev_pos = path[i];
         }
         if (newNote) {
+            note_cnt++;
+            console.log(note_cnt);
             let notes = grid[x][y].slice(0, 4);
             let volumes = [grid[x][y][4], grid[x][y][5], grid[x][y][5], grid[x][y][5]];
             //console.log(notes);
-            //console.log(volumes);
+            console.log(volumes[0]);
 
             for (let j = 0; j < 4; j++) {
-                if (notes[j] != last_notes[j]) {
+                if (notes[j] != last_notes[j] || 
+                    last_times[j] < note_cnt-maximum_hold_time) {
+                    last_times[j] = note_cnt;
                     if (last_notes[j]) {
-                        Tone.Transport.scheduleOnce(() => {synths[2][j].triggerRelease()}, total_time - 0.01);
+                        Tone.Transport.scheduleOnce(() => {synths[j].triggerRelease()}, total_time - 0.01);
                     }
                     last_notes[j] = notes[j]
                     if (notes[j]) {
-                        Tone.Transport.scheduleOnce(() => { synths[2][j].triggerAttack(convert_note(notes[j])) }, total_time);
+                        if (j >= 2) {
+                            notes[j] += 7;
+                        }
+                        Tone.Transport.scheduleOnce(() => { synths[j].triggerAttack(convert_note(notes[j])) }, total_time);
                     }
                 }
                 //console.log(!notes[i]);
                 if (!notes[j]) continue;
 
-                let intensity = (volumes[j] - 45) * 4 + default_volumes[2];
-                intensity = Math.min(intensity, max_volumes[2]);
+                let intensity = (volumes[j] - 42.5) * 4 + default_volumes[j];
+                intensity = Math.min(intensity, max_volumes[j]);
                 //console.log(intensity);
                 Tone.Transport.scheduleOnce(() => {
-                    synths[2][j].volume.value = intensity;
+                    synths[j].volume.linearRampTo(intensity, "4n");
                 }, total_time);
             }
 
@@ -96,4 +106,5 @@ export function play_path(synths, path, grid, gridSize) {
     }
     Tone.Transport.start();
 }
+
 //play() // call this when someone interacts with your program.

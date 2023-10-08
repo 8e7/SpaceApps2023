@@ -31,27 +31,27 @@ function SpaceImage({gridData}) {
           urls: { A2: "cello_A2.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         cello.volume.value = music.default_volumes[0];
-        let cellos = [cello, cello, cello, cello];
+        //let cellos = [cello, cello, cello, cello];
 
         const piano = new Tone.Sampler({
           urls: { C4: "piano_C4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         piano.volume.value = music.default_volumes[1];
-        let pianos = [piano, piano, piano, piano];
+        //let pianos = [piano, piano, piano, piano];
 
         const violin = new Tone.Sampler({
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         violin.volume.value = music.default_volumes[2];
-        let violins = [violin, violin, violin, violin];
+        //let violins = [violin, violin, violin, violin];
 
         const flute = new Tone.Sampler({
           urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         violin.volume.value = music.default_volumes[3];
-        let flutes = [flute, flute, flute, flute];
+        //let flutes = [flute, flute, flute, flute];
 
-        let newSynths = [cellos, pianos, violins, flutes];
+        let newSynths = [cello, cello, violin, violin];
         await Tone.start();
         setLoadedSamples(true);
         //console.log(newSynths);
