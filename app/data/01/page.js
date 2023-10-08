@@ -56,7 +56,6 @@ function SpaceImage({gridData}) {
         let newSynths = [cellos, pianos, violins, flutes];
         await Tone.start();
         setLoadedSamples(true);
-        //console.log(newSynths);
         setSynths(newSynths);
       }
       build()
@@ -104,7 +103,7 @@ function SpaceImage({gridData}) {
     onDragStart={(e) => {e.preventDefault();}}>
       {clipath.map((poss,index) => {
         let [x, y] = poss;
-        return (<div id = "mouseicon" key = {index} style = {{top: y, left: x}}></div>);
+        return (<div id="mouseicon" key={index} style={{top: y, left: x}}></div>);
       })}
       <img src = '/image/01.jpg'></img>
     </div></div>
