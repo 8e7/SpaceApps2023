@@ -13,11 +13,29 @@ export const metadata: Metadata = {
 function Footerbar() {
   return (
     <div id="backtomain"><a href="..">
-      <p>&#8592; Back to main page</p>
+      <h4>&#8592; Back to main page</h4>
     </a></div>
   )
 }
 
+function HowtoPlay(){
+  return (
+    <div id="howtoplay">
+      <div id="section">
+        <h3>How To Play</h3>
+        <p>
+Move around your cursor to explore! Click and drag to make a path of your adventure. Release and enjoy the sound of space on this chosen path. Listen carefully, the music can tell you a lot about this area!
+        </p>
+      </div>
+      <div id="section">
+        <h3>About WISE</h3>
+        <p>
+WISE (Wide-Field Infrared Survey Explorer) is an infrared space telescope that was launched in 2009. WISE performed all sky survey in 4 bands(3.4, 4.6, 12, and 22 μm), ranging from mid-infrared to far-infrared. The data from WISE is used to study phenomenons in the infrared regime, including luminous infrared galaxies, distant astroids, brown dwarfs, and much more.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 
 export default function DataLayout({
@@ -26,21 +44,12 @@ export default function DataLayout({
   children: React.ReactNode
 }) {
   return (
-    <div id="demoimg"><div id="theimage">
-      {children}
+    <div id="sub-body">
+      <div id="demo-main">
+        {children}
+        <HowtoPlay />
+      </div>
       <Footerbar />
-    </div></div>
+    </div>
   );
 }
-
-
-
-// export default function Layout({ children }) {
-//   return (
-//     <>
-//       <Titlebar />
-//       <main>{children}</main>
-//       {/* <Footer /> */}
-//     </>
-//   )
-// }

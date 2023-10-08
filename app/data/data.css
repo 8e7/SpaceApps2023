@@ -1,134 +1,81 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Define a CSS rule for your div element */
-* {
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
-  --backgroundcolor: #ebf5fe;
-  --boxcolor: #ffffff;
-  --textcolor: #00192e;
-
-  color: var(--textcolor);
-  /* font-family: "Times New Roman", Times, serif; */
-  /* border:1px solid var(--textcolor); */
-}
-
-
-body {
-  /* font-family: Arial, Helvetica, sans-serif; */
-  background-color: var(--backgroundcolor);
-  margin: 3%;
-  padding: 0;
-}
-#titlebar {
-  border-radius: 7px;
-  margin:0.3vw;
-  background-color: var(--boxcolor);
-}
-#titlebar > * {
-  margin:1.05%;
-}
 #backtomain {
   border-radius: 7px;
-  margin-top: 1vw;
+  margin: 0.3vw;
   background-color: var(--boxcolor);
 }
-#backtomain > a > p {
-  margin-left:2%;
+#backtomain > a > * {
+  padding:1%;
 }
-#main {
+#sub-body {
+  margin:0;
+}
+#image-display-box {
+  /* border: 1px blue; */
+  /* background-color: blue; */
+  background-color: var(--boxcolor);
+  margin:0.3vw;
+  max-height:80vh;
+  height:max-content;
+  padding: 0;
+  position: center;
+  
+}
+#detect-box {
+  /* background-color: red; */
+  max-height: 100%;
+  height:max-content;
+  width: max-content;
+  margin:auto;
+  position: center;
+  /* margin:auto; */
+  border-radius: 5px;
+}
+#detect-box > img {
+  margin:0;
+  max-height:72vh;
+  height:auto;
+  max-width: 53vw;
+  width: auto;
+  opacity: 1;
+  border-radius: 5px;
+  /* cursor: url("/image/02.jpg"), auto; */
+}
+#demo-main {
   display: grid;
-  grid-template-columns: 70% 30%;
-}
-#description {
-  background-color: var(--boxcolor);
-  border-radius: 7px;
-  margin:0.3vw;
-}
-#description > * {
-  /* color: rgb(85, 26, 130); */
-  
-  margin:1.5%;
-  /* width: 320px; */
-  
-}
-#demo {
-  background-color: var(--boxcolor);
-  border-radius: 7px;
-  margin:0.3vw;
-}
-#demo > * {
-  margin:3.5%;
-}
-#demoimg {
-  border-radius: 7px;
-  margin:0.3vw;
+  grid-template-columns: 60% 40%;
+  margin:0;
+  /* border:1px solid var(--textcolor); */
+  /* border-radius: 7px; */
+  /* margin:0.3vw; */
+  /* opacity: 0.3; */
   background-color: var(--backgroundcolor);
 }
-#demoimg > #theimage {
-  margin:0;
-}
-h1 {
-  
-  margin-top: 0;
-  font-size: 40px;
-  font-weight: 700;
-  font-family:  Times, serif;
+
+#demo-main > * {
+  border-radius: 7px;
+  /* background-color: var(--boxcolor); */
+  margin:0.3vw;
+  padding: 0.3vw;
 }
 
-h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
-h3 {
-  font-size: 18px;
-}
-
-a {
-  margin:0;
-  padding:0;
+#howtoplay {
+  /* opacity: 0; */
+  background-color: rgba(0, 255, 255, 0);
+  padding: 0;
+  margin: 0;
 }
 
-h4 {
-  margin-top: 0;
-  font-size: 16px;
+#howtoplay > * {
+  background-color: var(--boxcolor);
+  opacity: 1;
+  /* margin:0.3vw; */
+  /* padding: 1%; */
 }
 
-h5 {
-  margin-top: 0;
-  font-size: 14px;
+#mouseicon {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color:rgba(255, 253, 107);
+  border-radius: 50%;
 }
-
-h6 {
-  margin-top: 0;
-  font-size: 12px;
-}
-
-p {
-  font-weight: 300;
-  /* margin:1.5%; */
-}
-
-Image {
-  border-radius: 10px;
-  width: 100%;
-  box-sizing: content-box;
-}
-img {
-  border-radius: 10px;
-  width: 100%;
-  box-sizing: content-box;
-}
-code {
-  font-size: 1.2em;
-}
-
-ul {
-  padding-inline-start: 20px;
-}
-
-* {
-  box-sizing: border-box;
-}
-

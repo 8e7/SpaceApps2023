@@ -2,82 +2,137 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
 import Image from 'next/image'
-import pic from './milky-way-2695569_1280.jpg'
-import { InferGetStaticPropsType, GetStaticProps } from 'next'
-import jsonData from './m31pro.json'
+//import jsonData from './data.json'
 import * as music from '../../library/music.mjs'
 import * as Tone from 'tone'
+import useSWR from 'swr';
 
+const gridSize = [438, 438]; //this should be same as data size
+const sample_files = [
+  { pitch: 'A2', filename: 'cello_A2.mp3' },
+  { pitch: 'C4', filename: 'piano_C4.mp3' },
+  { pitch: 'A4', filename: 'violin_A4.mp3' },
+  { pitch: 'A5', filename: 'flute_A5.mp3' },
+  // Add more tuples as needed
+];
 
-export default function Page() {
+function SpaceImage({gridData}) {
   const [initMusic, setInitMusic] = useState(false);
-  const [mousePos, setMousePos] = useState([0, 0]);  
+  const [loadedSamples, setLoadedSamples] = useState(false);
   const [mouseHold, setMouseHold] = useState(false);
-  const [imageSize, setImageSize] = useState();
-  const gridSize = [100, 100]; //this should be same as data size
 
-  const [gridData, setGridData] = useState(() => {
-    //initializes grid data
-    const { xSize, ySize } = gridSize;
-    const array2D = Array.from({ length: xSize }, () =>
-      Array.from({ length: ySize }, () => null)
-    );
+  const [clipath, setClipath]=useState(Array(0));
+  const [synths, setSynths] = useState(); //each synth is a sampler
 
-    jsonData.forEach(element => {
-      const { px, py, w1n, w2n, w3n, w4n } = element;
-      if (px >= 0 && px < xSize && py >= 0 && py < ySize) {
-        array2D[px][py] = [w1n, w2n, w3n, w4n];
+  useEffect(() => { 
+    if (initMusic === true && loadedSamples == false) {
+      let build = async () => {
+        const cello = new Tone.Sampler({
+          urls: { A2: "cello_A2.mp3" }, baseUrl: "/samples/",
+        }).toDestination();
+        cello.volume.value = music.default_volumes[0];
+        let cellos = [cello, cello, cello, cello];
+
+        const piano = new Tone.Sampler({
+          urls: { C4: "piano_C4.mp3" }, baseUrl: "/samples/",
+        }).toDestination();
+        piano.volume.value = music.default_volumes[1];
+        let pianos = [piano, piano, piano, piano];
+
+        const violin = new Tone.Sampler({
+          urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
+        }).toDestination();
+        violin.volume.value = music.default_volumes[2];
+        let violins = [violin, violin, violin, violin];
+
+        const flute = new Tone.Sampler({
+          urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
+        }).toDestination();
+        violin.volume.value = music.default_volumes[3];
+        let flutes = [flute, flute, flute, flute];
+
+        let newSynths = [cellos, pianos, violins, flutes];
+        await Tone.start();
+        setLoadedSamples(true);
+        setSynths(newSynths);
       }
-    });
-    return array2D;
-  });
-
-  const [path, setPath] = useState(Array(0));
-
-  useEffect(() => {
-    if (initMusic === true) {
-      Tone.start();
+      build()
     }
   }, [initMusic]);
 
   function mousedown(e){
+    setMouseHold(true);
     if (initMusic === false) {
       setInitMusic(true);
     }
-    setMouseHold(true);
   }
   function mouseup(e) {
     setMouseHold(false);
-    console.log(path);
-    music.play_music();
-    setPath(Array(0)); //clears path
+    
+    if (loadedSamples === true) {
+      //console.log(gridData);
+      const target = e.target;
+      const rect = target.getBoundingClientRect();
+      let imageSize = [rect.right - rect.left, rect.bottom - rect.top];
+      let path = clipath.map((p) => {
+        let pos = [(p[0] - rect.left - window.screenX)/imageSize[0], (p[1] - rect.top - window.screenY)/imageSize[1]];
+        pos = [Math.max(0, Math.min(1, pos[0])), Math.max(0, Math.min(1, pos[0]))]
+        pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
+        return pos;
+      });
+      music.play_path(synths, path, gridData, gridSize);
+    }
+    setClipath(Array(0));
   }
   function mousemove(e) {
     if (mouseHold) {
       const target = e.target;
       const rect = target.getBoundingClientRect();
-      setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
+      
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+        return;
+      }
 
-      let pos = [(e.clientX - rect.left)/imageSize[0], (e.clientY - rect.top)/imageSize[1]];
-      pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
-      setMousePos(pos);
-      console.log(mousePos);
-      const nextPath = [...path, mousePos];
-      setPath(nextPath);
+      const newClipath=[...clipath,[e.clientX+window.screenX,e.clientY+window.scrollY]];
+      setClipath(newClipath);
+      //console.log(clipath.length)
     }
   }
-  const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }} onMouseDown={mousedown} onMouseUp={mouseup} onMouseMove={mousemove}
-    onMouseLeave={mouseup}
-    onDragStart={(e) => {e.preventDefault();}} >
-      <Image src={pic} alt="Space image" onLoadingComplete={(e) => {
-        const rect = e.getBoundingClientRect();
-        setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
-      }}/>
-    </div>);
-  
   return (
-    <>
-      {main_img}
-    </>
-  )
+    <div id = "image-display-box"><div id = "detect-box"
+    onMouseDown={mousedown} 
+    onMouseUp={mouseup}
+    onMouseMove={mousemove}
+    onMouseLeave={mouseup}
+    onDragStart={(e) => {e.preventDefault();}}>
+      {clipath.map((poss,index) => {
+        let [x, y] = poss;
+        return (<div id="mouseicon" key={index} style={{top: y, left: x}}></div>);
+      })}
+      <img src = '/image/01.jpg'></img>
+    </div></div>
+  );
+}
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+export default function Home() {
+  const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const { data, error } = useSWR('/data/version2.json', fetcher)
+  if (dataLoaded === false && (!error) && data) {
+    setDataLoaded(true);
+    const [xSize, ySize] = gridSize;
+    let array2D = Array(xSize).fill().map(() => Array(ySize).fill())
+    for (var index in data) {
+      let elem = data[index];
+      if (elem.px >= 0 && elem.px < xSize && elem.py >= 0 && elem.py < ySize) {
+        array2D[elem.px][elem.py] = [elem.base_note, elem.chord_note[0], elem.chord_note[1], elem.chord_note[2], elem.vol_base_note, elem.vol_base_note];
+      }
+    }
+    setGridData(array2D);
+    // console.log("Complete Init");
+  }
+  return (
+    <SpaceImage gridData={gridData}/>
+  );
 }
