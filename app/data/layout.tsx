@@ -26,6 +26,9 @@ function HowtoPlay(){
         <p>
 Move around your cursor to explore! Click and drag to make a path of your adventure. Release and enjoy the sound of space on this chosen path. Listen carefully, the music can tell you a lot about this area!
         </p>
+        <h5>
+Note: You may need to wait 5~10 seconds in order for the data set to load properly.
+        </h5>
       </div>
       <div id="section">
         <h3>About WISE</h3>

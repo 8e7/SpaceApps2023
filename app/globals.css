@@ -27,7 +27,8 @@ body {
 }
 #titlebar > * {
   margin:0%;
-  padding: 1%;
+  padding:1vw;
+  padding-left: 2vw;
 }
 #main {
   display: grid;
@@ -42,8 +43,49 @@ body {
   margin-bottom: 0.6vw;
   background-color: var(--boxcolor);
   border-radius: 7px;
-  padding: 2%;
+  padding: 0;
+  padding-bottom: 0.6%;
 }
+#section > * {
+  padding-left:1.5vw;
+  padding-right:1.5vw;
+}
+#section > #imgbox {
+  /* padding: 3%; */
+  padding-top:1%;
+  padding-bottom: 1%;
+}
+#section > p {
+  /* padding: 1.5vw; */
+  padding-top:0;
+  padding-bottom: 1vw;
+}
+#section > h2, h3, h4, h5{
+  /* padding-left: 0%; */
+  /* padding: 1.5vw; */
+  padding-top:1vw;
+  padding-bottom: 0.5vw;
+}
+
+#subsection {
+  margin:1vw;
+  border-radius: 5px;
+  /* background-color: var(--backgroundcolor); */
+  border:2px solid var(--backgroundcolor);
+  padding:1%;
+  
+}
+#subsection > * {
+  /* padding:1%; */
+  padding-left: 1vw;
+  padding-right: 1%;
+}
+#subsection > p {
+  padding:1%;
+  /* padding-left: 3%; */
+  /* padding-right: 3%; */
+}
+
 #demo {
   background-color: var(--boxcolor);
   border-radius: 7px;
