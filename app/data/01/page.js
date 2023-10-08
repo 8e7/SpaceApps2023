@@ -98,7 +98,7 @@ function SpaceImage({gridData}) {
       const rect = target.getBoundingClientRect();
       setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
       //todo!!
-      const newClipath=[...clipath,[e.clientX,e.clientY]];
+      const newClipath=[...clipath,[e.clientX+window.screenX,e.clientY+window.scrollY]];
       setClipath(newClipath);
       console.log(clipath.length)
       //end todo
