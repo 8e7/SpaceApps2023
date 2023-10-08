@@ -8,7 +8,6 @@ function SpaceImage() {
   const main_img = (<div id="detect-box">
     <img src='/image/01.jpg'></img>
   </div>);
-  
   return (
     <div id="image-display-box">
       {main_img}
