@@ -103,7 +103,7 @@ function SpaceImage({gridData}) {
       //todo!!
       const newClipath=[...clipath,[e.clientX,e.clientY]];
       setClipath(newClipath);
-      console.log(clipath.length)
+      //console.log(clipath.length)
       //end todo
       let pos = [(e.clientX - rect.left)/imageSize[0], (e.clientY - rect.top)/imageSize[1]];
       pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
@@ -122,7 +122,7 @@ function SpaceImage({gridData}) {
     onDragStart={(e) => {e.preventDefault();}}>
       {clipath.map((poss)=>{
         let [x,y]=poss;
-        return <div id="mouseicon" style={{top: y, left: x}}></div>
+        return <div id="mouseicon" style={{top: y, left: x}}></div>;
       })}
       <img src='/image/01.jpg'></img>
     </div></div>
@@ -133,15 +133,15 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { data , error } = useSWR('/data/version1.json', fetcher)
-  if (dataLoaded == false && (!error) && data) {
+  const { data , error } = useSWR('/data/version2.json', fetcher)
+  if (dataLoaded === false && (!error) && data) {
     setDataLoaded(true);
     const [xSize, ySize] = gridSize;
     let array2D = Array(xSize).fill().map(() => Array(ySize).fill())
     for (var index in data) {
       let elem = data[index];
       if (elem.px >= 0 && elem.px < xSize && elem.py >= 0 && elem.py < ySize) {
-        array2D[elem.px][elem.py] = [elem.base_note, elem.chord_note[0], elem.chord_note[1], elem.chord_note[2], elem.vol_bass_note, elem.vol_chord_not];
+        array2D[elem.px][elem.py] = [elem.base_note, elem.chord_note[0], elem.chord_note[1], elem.chord_note[2], elem.vol_base_note, elem.vol_base_note];
       }
     }
     setGridData(array2D);

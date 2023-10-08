@@ -6,10 +6,10 @@ export function play_music(synth) {
     synth.triggerAttackRelease(["C4", "E4", "A4"], 1);
 }
 
-const root_notes = ["C3", "G3", "E4", "B4"];
+//const root_notes = ["C3", "G3", "E4", "B4"];
 
 export const default_volumes = [+5, -15, +5, +5];
-export const max_volumes = [+15, 0, +15, +15];
+export const max_volumes = [+15, 0, +10, +15];
 
 const scale = ["C", "D", "E", "F", "G", "A", "B"];
 function convert_note(x) {
@@ -48,9 +48,11 @@ export function play_path(synths, path, grid, gridSize) {
         if (i) {
             const bpm_multiplier = 2;
             let dis_to_prev = Math.hypot(path[i][0] - prev_pos[0], path[i][1] - prev_pos[1]);
+            
             if (dis_to_prev < minimum_move_distance) {
                 newNote = false; 
             } else {
+                console.log(i);
                 prev_pos = path[i];
             }
             //let speed = Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
@@ -64,22 +66,24 @@ export function play_path(synths, path, grid, gridSize) {
             //console.log(notes);
             //console.log(volumes);
 
-            for (let i = 0; i < 4; i++) {
-                if (notes[i] != last_notes[i]) {
-                    if (last_notes[i]) {
-                        Tone.Transport.scheduleOnce(() => {synths[2][i].triggerRelease()}, total_time-0.01);
+            for (let j = 0; j < 4; j++) {
+                if (notes[j] != last_notes[j]) {
+                    if (last_notes[j]) {
+                        Tone.Transport.scheduleOnce(() => {synths[2][j].triggerRelease()}, total_time-0.01);
                     }
-                    last_notes[i] = notes[i]
-                    if (notes[i]) {
-                        Tone.Transport.scheduleOnce(() => { synths[2][i].triggerAttack(convert_note(notes[i])) }, total_time);
+                    last_notes[j] = notes[j]
+                    if (notes[j]) {
+                        Tone.Transport.scheduleOnce(() => { synths[2][j].triggerAttack(convert_note(notes[j])) }, total_time);
                     }
                 }
-                if (!notes[i]) continue;
+                //console.log(!notes[i]);
+                if (!notes[j]) continue;
 
-                let intensity = volumes[i] - 60;
-                intensity = Math.min(intensity, max_volumes[i]);
+                let intensity = (volumes[j] - 45) * 4 + default_volumes[2];
+                intensity = Math.min(intensity, max_volumes[2]);
+                //console.log(intensity);
                 Tone.Transport.scheduleOnce(() => {
-                    synths[2][i].volume.value = intensity;
+                    synths[2][j].volume.value = intensity;
                 }, total_time);
             }
 
