@@ -36,7 +36,7 @@
   height:auto;
   max-width: 53vw;
   width: auto;
-  opacity: 0.3;
+  opacity: 1;
   border-radius: 5px;
   /* cursor: url("/image/02.jpg"), auto; */
 }
@@ -73,9 +73,9 @@
 }
 
 #mouseicon {
-  position: fixed;
+  position: absolute;
   width: 10px;
   height: 10px;
-  background-color: rgb(151, 28, 28);
-  
+  background-color:rgba(255, 253, 107);
+  border-radius: 50%;
 }
