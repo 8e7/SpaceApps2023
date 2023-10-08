@@ -5,15 +5,15 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Ten Hours Of Space Music For Sleeping',
+  title: 'A Sonic Dash Through The Cosmos',
   description: 'Space Apps 2023',
 }
 
 function Titlebar() {
   return (
     <div id="titlebar">
-      <h1>Ten Hours Of Space Music For Sleeping</h1>
-      <h4>Authors : Ting-An Wang, Jhao-Syun Lai, Tuan-Lin Chang, You-Hsuan Chen, Yu-Ciao Liao</h4>
+      <h1>A Sonic Dash Through The Cosmos</h1>
+      <h4>Authors: Ting-An Wang, Jhao-Syun Lai, Tuan-Lin Chang, You-Hsuan Chen, Yu-Ciao Liao</h4>
     </div>
   );
 }

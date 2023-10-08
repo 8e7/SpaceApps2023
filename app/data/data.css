@@ -40,6 +40,9 @@
   border-radius: 5px;
   /* cursor: url("/image/02.jpg"), auto; */
 }
+SpaceImage {
+
+}
 #demo-main {
   display: grid;
   grid-template-columns: 60% 40%;
@@ -49,15 +52,32 @@
   /* margin:0.3vw; */
   /* opacity: 0.3; */
   background-color: var(--backgroundcolor);
+  /* background-color: red; */
 }
 
 #demo-main > * {
   border-radius: 7px;
   /* background-color: var(--boxcolor); */
+  /* background-color: red; */
   margin:0.3vw;
   padding: 0.3vw;
 }
 
+#demo-main > #leftpart {
+  border-radius: 0;
+  /* background-color: var(--boxcolor); */
+  /* background-color: red; */
+  margin:0;
+  padding: 0;
+  
+}
+#demo-main > #leftpart > * {
+  border-radius: 7px;
+  background-color: var(--boxcolor);
+  margin:0.3vw;
+  margin-bottom: 0.6vw;
+  padding: 0.8vw;
+}
 #howtoplay {
   /* opacity: 0; */
   background-color: rgba(0, 255, 255, 0);

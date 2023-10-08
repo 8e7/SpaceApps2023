@@ -7,20 +7,12 @@ import * as music from '../../library/music.mjs'
 import * as Tone from 'tone'
 import useSWR from 'swr';
 
-const gridSize = [438, 438]; //this should be same as data size
-const sample_files = [
-  { pitch: 'A2', filename: 'cello_A2.mp3' },
-  { pitch: 'C4', filename: 'piano_C4.mp3' },
-  { pitch: 'A4', filename: 'violin_A4.mp3' },
-  { pitch: 'A5', filename: 'flute_A5.mp3' },
-  // Add more tuples as needed
-];
+const gridSize = [438, 438];
 
 function SpaceImage({gridData}) {
   const [initMusic, setInitMusic] = useState(false);
   const [loadedSamples, setLoadedSamples] = useState(false);
   const [mouseHold, setMouseHold] = useState(false);
-
   const [clipath, setClipath]=useState(Array(0));
   const [synths, setSynths] = useState(); //each synth is a sampler
 
@@ -31,27 +23,27 @@ function SpaceImage({gridData}) {
           urls: { A2: "cello_A2.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         cello.volume.value = music.default_volumes[0];
-        let cellos = [cello, cello, cello, cello];
+        //let cellos = [cello, cello, cello, cello];
 
         const piano = new Tone.Sampler({
           urls: { C4: "piano_C4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         piano.volume.value = music.default_volumes[1];
-        let pianos = [piano, piano, piano, piano];
+        //let pianos = [piano, piano, piano, piano];
 
         const violin = new Tone.Sampler({
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         violin.volume.value = music.default_volumes[2];
-        let violins = [violin, violin, violin, violin];
+        //let violins = [violin, violin, violin, violin];
 
         const flute = new Tone.Sampler({
           urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         violin.volume.value = music.default_volumes[3];
-        let flutes = [flute, flute, flute, flute];
+        //let flutes = [flute, flute, flute, flute];
 
-        let newSynths = [cellos, pianos, violins, flutes];
+        let newSynths = [cello, cello, violin, violin];
         await Tone.start();
         setLoadedSamples(true);
         setSynths(newSynths);
@@ -61,15 +53,16 @@ function SpaceImage({gridData}) {
   }, [initMusic]);
 
   function mousedown(e){
+    setClipath(Array(0));
+
     setMouseHold(true);
     if (initMusic === false) {
       setInitMusic(true);
     }
   }
   function mouseup(e) {
-    setMouseHold(false);
-    
-    if (loadedSamples === true) {
+    if (loadedSamples === true && mouseHold === true) {
+      setMouseHold(false);
       //console.log(gridData);
       const target = e.target;
       const rect = target.getBoundingClientRect();
@@ -82,7 +75,7 @@ function SpaceImage({gridData}) {
       });
       music.play_path(synths, path, gridData, gridSize);
     }
-    setClipath(Array(0));
+    setMouseHold(false);
   }
   function mousemove(e) {
     if (mouseHold) {
@@ -98,6 +91,7 @@ function SpaceImage({gridData}) {
       //console.log(clipath.length)
     }
   }
+  
   return (
     <div id = "image-display-box"><div id = "detect-box"
     onMouseDown={mousedown} 
@@ -118,7 +112,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { data, error } = useSWR('/data/version2.json', fetcher)
+  const { data, error } = useSWR('/data/m51.json', fetcher)
   if (dataLoaded === false && (!error) && data) {
     setDataLoaded(true);
     const [xSize, ySize] = gridSize;
@@ -133,6 +127,14 @@ export default function Home() {
     // console.log("Complete Init");
   }
   return (
-    <SpaceImage gridData={gridData}/>
+    <div id="leftpart">
+      <SpaceImage gridData={gridData}/>
+      <div id="section">
+        <h3>About M51</h3>
+        <p>
+        M51 ,NGC-5194, is the first galaxy being classifed as the Spiral Galaxy. It is 31 million light-year away from the Earth and its two prominent spiral arms are ideal objects for us to study the close interaction between two galaxies. Some of the observations show that the star formation rate at the center of M51 maight undergoing an enhancement.
+        </p>
+      </div>
+    </div>
   );
 }
