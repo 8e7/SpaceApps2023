@@ -30,18 +30,15 @@ function SpaceImage({gridData}) {
   const [synths, setSynths] = useState(); //each synth is a sampler
 
   const [cliPathCopy, setCliPathCopy] = useState(Array(0));
-  cosnt [cur_mouse, setCurMouse] = useState([-1,0,0]);
+  const [cur_mouse, setCurMouse] = useState([-1,0,0]);
   function onBeat() {
     setCurMouse(cur_mouse[0]+1,cur_mouse[1],cur_mouse[2]);
     if(cur_mouse[0]==cliPathCopy.length){
-      cur_mouse=[-1,0,0];
+      setCurMouse([-1,0,0]);
     }
     else{
-      cur_mouse[1]=cliPathCopy[cur_mouse[0]][0];
-      cur_mouse[2]=cliPathCopy[cur_mouse[0]][1];
+      setCurMouse([cur_mouse[0],cliPathCopy[cur_mouse[0]][0]],cliPathCopy[cur_mouse[0]][1]);
     }
-    // Your code to execute on every beat
-    // console.log('Beat at time:', time);
   }
   useEffect(() => { 
     if (initMusic === true && loadedSamples == false) {
@@ -157,6 +154,14 @@ export default function Home() {
     // console.log("Complete Init");
   }
   return (
-    <SpaceImage gridData={gridData}/>
+    <div id="leftpart">
+      <SpaceImage gridData={gridData}/>
+      <div id="section">
+        <h3>About M51</h3>
+        <p>
+        M51 ,NGC-5194, is the first galaxy being classifed as the Spiral Galaxy. It is 31 million light-year away from the Earth and its two prominent spiral arms are ideal objects for us to study the close interaction between two galaxies. Some of the observations show that the star formation rate at the center of M51 maight undergoing an enhancement.
+        </p>
+      </div>
+    </div>
   );
 }

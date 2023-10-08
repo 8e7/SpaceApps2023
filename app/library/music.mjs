@@ -9,7 +9,8 @@ export function play_music(synth) {
 // export 
 
 export function GetCurId(){
-    return cur_mouse;
+    return ( [-1,0,0]);
+    // return cur_mouse;
 }
 //const root_notes = ["C3", "G3", "E4", "B4"];
 
