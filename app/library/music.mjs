@@ -37,11 +37,10 @@ export function play_path(synths, path, grid, gridSize, speed) {
         
         let wave = grid[x][y].slice(0, 4);
         let intensity = grid[x][y][4];
-        
 
         const maxValue = Math.max(...wave);
         const maxInd = wave.indexOf(maxValue);
-        Tone.Transport.scheduleOnce(() => {synths[maxInd].triggerAttackRelease(root_notes[maxInd], "8n")}, total_time);
+        Tone.Transport.scheduleOnce(() => {synths[maxInd][0].triggerAttackRelease(root_notes[maxInd], "8n")}, total_time);
         total_time += Tone.Time("8n").toSeconds();
     }
     Tone.Transport.start();
