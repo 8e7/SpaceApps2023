@@ -85,7 +85,7 @@ export function play_path(synths, path, grid, gridSize) {
                         Tone.Transport.scheduleOnce(() => {synths[j].triggerRelease()}, total_time - 0.01);
                     }
                     last_notes[j] = notes[j]
-                    if (notes[j]) {
+                    if (notes[j] && !isNaN(notes[j])) {
                         if (j >= 2) {
                             notes[j] += 7;
                         }

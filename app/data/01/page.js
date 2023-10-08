@@ -16,7 +16,6 @@ function SpaceImage({gridData}) {
   const [clipath, setClipath]=useState(Array(0));
   const [synths, setSynths] = useState(); //each synth is a sampler
 
-
   useEffect(() => { 
     if (initMusic === true && loadedSamples == false) {
       let build = async () => {
@@ -54,16 +53,16 @@ function SpaceImage({gridData}) {
   }, [initMusic]);
 
   function mousedown(e){
-    if(!mouseHold) {
-    }
+    setClipath(Array(0));
+
     setMouseHold(true);
     if (initMusic === false) {
       setInitMusic(true);
     }
   }
   function mouseup(e) {
-    setMouseHold(false);
-    if (loadedSamples === true) {
+    if (loadedSamples === true && mouseHold === true) {
+      setMouseHold(false);
       //console.log(gridData);
       const target = e.target;
       const rect = target.getBoundingClientRect();
@@ -76,7 +75,7 @@ function SpaceImage({gridData}) {
       });
       music.play_path(synths, path, gridData, gridSize);
     }
-    setClipath(Array(0));
+    setMouseHold(false);
   }
   function mousemove(e) {
     if (mouseHold) {
@@ -113,7 +112,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { data, error } = useSWR('/data/version2.json', fetcher)
+  const { data, error } = useSWR('/data/m51.json', fetcher)
   if (dataLoaded === false && (!error) && data) {
     setDataLoaded(true);
     const [xSize, ySize] = gridSize;

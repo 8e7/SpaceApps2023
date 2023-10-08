@@ -14,4 +14,4 @@ def remove_column(json_file, column_names):
 
 # Replace 'data.json' with your actual JSON file name
 # Replace 'city' with the column name you want to remove
-remove_column('m51.json', ["vol_bass_note", "vol_chord_not"])
+remove_column('m1_.json', ["vol_bass_note", "vol_chord_not"])
