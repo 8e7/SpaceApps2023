@@ -134,6 +134,7 @@ export default function Home() {
         <p>
         NGC-7320 is a spiral galaxy lies at the distance of 39 million light years. It has a region where the star formation rate is high. It&apos;s a member of Stephan Quintet but it&apos;s not the actual member of the galaxy group. Other member of the galaxy group is much further away from it.
         </p>
+        <h5>The image is provided by JWST</h5>
       </div>
     </div>
   );
