@@ -24,7 +24,6 @@ function SpaceImage({gridData}) {
   const [mouseHold, setMouseHold] = useState(false);
   const [imageSize, setImageSize] = useState([500, 800]);
 
-
   const [path, setPath] = useState(Array(0));
   const [synths, setSynths] = useState(); //each synth is a sampler
 
@@ -34,16 +33,20 @@ function SpaceImage({gridData}) {
         const cello = new Tone.Sampler({
           urls: { A2: "cello_A2.mp3" }, baseUrl: "/samples/",
         }).toDestination();
+        let cellos = [cello, cello, cello, cello];
         const piano = new Tone.Sampler({
           urls: { C4: "piano_C4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
+        let pianos = [piano, piano, piano, piano];
         const violin = new Tone.Sampler({
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
+        let violins = [violin, violin, violin, violin];
         const flute = new Tone.Sampler({
           urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
         }).toDestination();
-        let newSynths = [cello, piano, violin, flute];
+        let flutes = [flute, flute, flute, flute];
+        let newSynths = [cellos, pianos, violins, flutes];
         await Tone.start();
         setLoadedSamples(true);
         //console.log(newSynths);
