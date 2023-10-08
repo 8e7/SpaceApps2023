@@ -134,6 +134,7 @@ export default function Home() {
         <p>
         M51 ,NGC-5194, is the first galaxy being classifed as the Spiral Galaxy. It is 31 million light-year away from the Earth and its two prominent spiral arms are ideal objects for us to study the close interaction between two galaxies. Some of the observations show that the star formation rate at the center of M51 maight undergoing an enhancement.
         </p>
+        <h5>The image is provided by Hubble</h5>
       </div>
     </div>
   );
