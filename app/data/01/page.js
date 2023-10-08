@@ -110,7 +110,7 @@ function SpaceImage({gridData}) {
     onDragStart={(e) => {e.preventDefault();}}>
       {clipath.map((poss)=>{
         let [x,y]=poss;
-        return (<div id="mouseicon" style={{top: y, left: x}}></div>);
+        return (<div id="mouseicon" key={(x*10000+y)} style={{top: y, left: x}}></div>);
       })}
       <img src='/image/01.jpg'></img>
     </div></div>
