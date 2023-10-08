@@ -15,21 +15,20 @@ function Description() {
   return (
     <div id="description">
       <div id="section">
-        <h2>Idea (temp)</h2>
+        <h2>What Does it Do?</h2>
         <p>
-    The webapp shows a preloaded image of space, the user interacts with the image by dragging the mouse to form a path, then audio is played according to a traversal of the path.
-        </p>
-        <p>
-    Each pixel has data on the intensities of certain frequencies. Our current idea is to take the strongest frequency bands, map them into musical notes, and create a chord. 
-        </p>
-        <p>
-    There will be some points (stars) to consider. The path has to find the closest point(s) to form the sound that is represented. 
+to be upd
         </p>
       </div>
       <div id="section">
-        <h2>Usage</h2>
+        <h2>How is it Done?</h2>
+        <h3>1. Data Processing</h3>
         <p>
-          user
+to be upd
+        </p>
+        <h3>2. Music</h3>
+        <p>
+to be upd
         </p>
       </div>
     </div>
@@ -54,7 +53,7 @@ function Imagelink({num}) {
   return (
     <div><a href={"/data/"+num+"/"} id="imglink">
       <img src={"/image/"+num+".jpg"}></img>
-      <p>Image {num}: {imgdesc[num-1]}</p>
+      <p>{imgdesc[num-1]}</p>
     </a></div>
   );
 }
