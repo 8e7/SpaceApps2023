@@ -16,7 +16,7 @@
 }
 #image-display-box > * {
   margin:0;
-  max-height:40vw;
+  max-height:80vh;
   height:auto;
   /* margin-left: 10vw;
   margin-right:10vw; */
@@ -29,6 +29,21 @@
   max-width: 100%;
   width: auto;
   border-radius: 5px;
+}
+#detect-box {
+  background-color: red;
+  border: 10px rgb(243, 13, 13);
+  max-height: 100%;
+  height: auto;
+  max-width: 100%;
+  width: max-content;
+  margin:auto;
+  position: center;
+  /* display: 'flex';
+  flexDirection: 'column'; */
+}
+img {
+  opacity: 1;
 }
 /* body {
   border:1px solid var(--textcolor);

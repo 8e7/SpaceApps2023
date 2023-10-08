@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { InferGetStaticPropsType, GetStaticProps } from 'next'
 
 function SpaceImage() {
-  const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }}>
-    <img src='/image/02.jpg'></img>
+  const main_img = (<div id="detect-box">
+    <img src='/image/01.jpg'></img>
   </div>);
   
   return (

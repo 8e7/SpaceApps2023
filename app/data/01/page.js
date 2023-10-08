@@ -105,15 +105,22 @@ function SpaceImage() {
       setPath(nextPath);
     }
   }
-  const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }}>
-    <Image src='/image/01.jpg' width={500} height={800} alt="image 1"
+  // const main_img = (<div style={{ display: 'flex', flexDirection: 'column' }}>
+  //   <Image src='/image/01.jpg' width={500} height={800} alt="image 1"
+  //   onMouseDown={mousedown} 
+  //   onMouseUp={mouseup}
+  //   onMouseMove={mousemove}
+  //   onMouseLeave={mouseup}
+  //   onDragStart={(e) => {e.preventDefault();}} />
+  // </div>);
+  const main_img = (<div id="detect-box"
     onMouseDown={mousedown} 
-    onMouseUp={mouseup} 
+    onMouseUp={mouseup}
     onMouseMove={mousemove}
     onMouseLeave={mouseup}
-    onDragStart={(e) => {e.preventDefault();}} />
+    onDragStart={(e) => {e.preventDefault();}}>
+    <img src='/image/01.jpg'></img>
   </div>);
-  
   return (
     <div id="image-display-box">
       {main_img}
