@@ -7,23 +7,42 @@ import * as music from '../../library/music.mjs'
 import * as Tone from 'tone'
 import useSWR from 'swr';
 
-const gridSize = [438, 438]; //this should be same as data size
-const sample_files = [
-  { pitch: 'A2', filename: 'cello_A2.mp3' },
-  { pitch: 'C4', filename: 'piano_C4.mp3' },
-  { pitch: 'A4', filename: 'violin_A4.mp3' },
-  { pitch: 'A5', filename: 'flute_A5.mp3' },
-  // Add more tuples as needed
-];
+const gridSize = [438, 438];
+
+function Now_playing(){
+  let id = music.GetCurId()[0], x = music.GetCurId()[1], y = music.GetCurId()[2];
+  console.log(music.GetCurId())
+  if(id >= 0){
+    // console.log("now_playing");
+    return (<div id="mouseicon" key={id} style={{top: y, left: x}}></div>);
+  }
+  else{
+    // console.log("now_not_playing");
+    return null;
+  }
+}
 
 function SpaceImage({gridData}) {
   const [initMusic, setInitMusic] = useState(false);
   const [loadedSamples, setLoadedSamples] = useState(false);
   const [mouseHold, setMouseHold] = useState(false);
-
   const [clipath, setClipath]=useState(Array(0));
   const [synths, setSynths] = useState(); //each synth is a sampler
 
+  const [cliPathCopy, setCliPathCopy] = useState(Array(0));
+  cosnt [cur_mouse, setCurMouse] = useState([-1,0,0]);
+  function onBeat() {
+    setCurMouse(cur_mouse[0]+1,cur_mouse[1],cur_mouse[2]);
+    if(cur_mouse[0]==cliPathCopy.length){
+      cur_mouse=[-1,0,0];
+    }
+    else{
+      cur_mouse[1]=cliPathCopy[cur_mouse[0]][0];
+      cur_mouse[2]=cliPathCopy[cur_mouse[0]][1];
+    }
+    // Your code to execute on every beat
+    // console.log('Beat at time:', time);
+  }
   useEffect(() => { 
     if (initMusic === true && loadedSamples == false) {
       let build = async () => {
@@ -61,6 +80,9 @@ function SpaceImage({gridData}) {
   }, [initMusic]);
 
   function mousedown(e){
+    if(!mouseHold) {
+      // setClipath(Array(0));
+    }
     setMouseHold(true);
     if (initMusic === false) {
       setInitMusic(true);
@@ -68,7 +90,6 @@ function SpaceImage({gridData}) {
   }
   function mouseup(e) {
     setMouseHold(false);
-    
     if (loadedSamples === true) {
       //console.log(gridData);
       const target = e.target;
@@ -80,7 +101,8 @@ function SpaceImage({gridData}) {
         pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
         return pos;
       });
-      music.play_path(synths, path, gridData, gridSize);
+      setCliPathCopy(clipath);
+      music.play_path(synths, path, gridData, gridSize, clipath);
     }
     setClipath(Array(0));
   }
@@ -98,6 +120,7 @@ function SpaceImage({gridData}) {
       //console.log(clipath.length)
     }
   }
+  
   return (
     <div id = "image-display-box"><div id = "detect-box"
     onMouseDown={mousedown} 
@@ -109,6 +132,7 @@ function SpaceImage({gridData}) {
         let [x, y] = poss;
         return (<div id="mouseicon" key={index} style={{top: y, left: x}}></div>);
       })}
+      <Now_playing />
       <img src = '/image/01.jpg'></img>
     </div></div>
   );

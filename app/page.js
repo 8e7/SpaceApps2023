@@ -41,18 +41,24 @@ function Demostration() {
       <h2>Listen to our demos</h2>
       <Imagelink num="01" />
       <Imagelink num="02" />
-      {/* <Imagelink num="03" /> */}
+      <Imagelink num="03" />
     </div>
   );
 }
 function Imagelink({num}) {
   const imgdesc=[
-    "M51 galaxy",
-    "M31(?)"
+    "M51 Galaxy",
+    "Stephan's Quintet",
+    "M1 Crab Nebula"
+  ]
+  const imgurl=[
+    "01.jpg",
+    "02.png",
+    "03.png"
   ]
   return (
     <div><a href={"/data/"+num+"/"} id="imglink">
-      <img src={"/image/"+num+".jpg"}></img>
+      <img src={"/image/"+imgurl[num-1]}></img>
       <p>{imgdesc[num-1]}</p>
     </a></div>
   );

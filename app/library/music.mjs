@@ -6,6 +6,11 @@ export function play_music(synth) {
     synth.triggerAttackRelease(["C4", "E4", "A4"], 1);
 }
 
+// export 
+
+export function GetCurId(){
+    return cur_mouse;
+}
 //const root_notes = ["C3", "G3", "E4", "B4"];
 
 export const default_volumes = [+5, -15, +5, +5];
@@ -19,19 +24,25 @@ function convert_note(x) {
     if (oct <= 0) {
         console.log(oct);
     }
-    let res = note+oct;
+    let res = note + oct;
     return res;
 }
 
 const minimum_move_distance = 4;
-export function play_path(synths, path, grid, gridSize) {
+export function play_path(synths, path, grid, gridSize, cliPath) {
+    cur_mouse = [-1,0,0];
+    cliPathCopy=Array(0);
+    cliPathCopy=cliPath;
     let len = path.length;
     if (len === 0 || !grid) {
+        
         return;
     }
     console.log("Playing");
+    Tone.Transport.clear(onBeat);
     Tone.Transport.stop();
     Tone.Transport.cancel();
+    // cur_mouse=[-1,0,0];
     let [n, m] = gridSize;
     let prev_pos = [];
     let last_notes = Array(4, null);
@@ -41,7 +52,6 @@ export function play_path(synths, path, grid, gridSize) {
         Tone.Transport.bpm.value = new_bpm;
     };
 
-    //first sync instruments to Tone.Transport
     for (let i = 0; i < 4; i++) {
         synths[2][i].sync();
     }    
@@ -49,6 +59,7 @@ export function play_path(synths, path, grid, gridSize) {
         if (!path[i]) continue;
         let [x, y] = path[i];
         if (!grid[x] || !grid[x][y]) continue;
+        // cur_mouse=[i,cliPath[i][0],cliPath[i][1]];
         let newNote = true;
         if (i) {
             const bpm_multiplier = 2;
@@ -59,17 +70,12 @@ export function play_path(synths, path, grid, gridSize) {
             } else {
                 prev_pos = path[i];
             }
-            //let speed = Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
-            //Tone.Transport.scheduleOnce(change_bpm(50 + speed * bpm_multiplier), total_time);
         } else {
             prev_pos = path[i];
         }
         if (newNote) {
             let notes = grid[x][y].slice(0, 4);
             let volumes = [grid[x][y][4], grid[x][y][5], grid[x][y][5], grid[x][y][5]];
-            //console.log(notes);
-            //console.log(volumes);
-
             for (let j = 0; j < 4; j++) {
                 if (notes[j] != last_notes[j]) {
                     if (last_notes[j]) {
@@ -93,7 +99,11 @@ export function play_path(synths, path, grid, gridSize) {
 
             total_time += Tone.Time("4n").toSeconds();
         }
+        // cur_mouse=[-1,0,0];
     }
+    Tone.Transport.scheduleRepeat(onBeat,"64n");
     Tone.Transport.start();
+    
+    // TonBeat(time,cliPath);
 }
 //play() // call this when someone interacts with your program.
