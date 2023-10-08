@@ -9,19 +9,6 @@ import useSWR from 'swr';
 
 const gridSize = [438, 438];
 
-function Now_playing(){
-  let id = music.GetCurId()[0], x = music.GetCurId()[1], y = music.GetCurId()[2];
-  console.log(music.GetCurId())
-  if(id >= 0){
-    // console.log("now_playing");
-    return (<div id="mouseicon" key={id} style={{top: y, left: x}}></div>);
-  }
-  else{
-    // console.log("now_not_playing");
-    return null;
-  }
-}
-
 function SpaceImage({gridData}) {
   const [initMusic, setInitMusic] = useState(false);
   const [loadedSamples, setLoadedSamples] = useState(false);
@@ -29,17 +16,7 @@ function SpaceImage({gridData}) {
   const [clipath, setClipath]=useState(Array(0));
   const [synths, setSynths] = useState(); //each synth is a sampler
 
-  const [cliPathCopy, setCliPathCopy] = useState(Array(0));
-  const [cur_mouse, setCurMouse] = useState([-1,0,0]);
-  function onBeat() {
-    setCurMouse(cur_mouse[0]+1,cur_mouse[1],cur_mouse[2]);
-    if(cur_mouse[0]==cliPathCopy.length){
-      setCurMouse([-1,0,0]);
-    }
-    else{
-      setCurMouse([cur_mouse[0],cliPathCopy[cur_mouse[0]][0]],cliPathCopy[cur_mouse[0]][1]);
-    }
-  }
+
   useEffect(() => { 
     if (initMusic === true && loadedSamples == false) {
       let build = async () => {
@@ -78,7 +55,6 @@ function SpaceImage({gridData}) {
 
   function mousedown(e){
     if(!mouseHold) {
-      // setClipath(Array(0));
     }
     setMouseHold(true);
     if (initMusic === false) {
@@ -98,8 +74,7 @@ function SpaceImage({gridData}) {
         pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
         return pos;
       });
-      setCliPathCopy(clipath);
-      music.play_path(synths, path, gridData, gridSize, clipath);
+      music.play_path(synths, path, gridData, gridSize);
     }
     setClipath(Array(0));
   }

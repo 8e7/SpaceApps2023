@@ -8,10 +8,7 @@ export function play_music(synth) {
 
 // export 
 
-export function GetCurId(){
-    return ( [-1,0,0]);
-    // return cur_mouse;
-}
+
 //const root_notes = ["C3", "G3", "E4", "B4"];
 
 export const default_volumes = [+5, -15, +5, +5];
@@ -30,10 +27,8 @@ function convert_note(x) {
 }
 
 const minimum_move_distance = 4;
-export function play_path(synths, path, grid, gridSize, cliPath) {
-    cur_mouse = [-1,0,0];
-    cliPathCopy=Array(0);
-    cliPathCopy=cliPath;
+export function play_path(synths, path, grid, gridSize) {
+
     let len = path.length;
     if (len === 0 || !grid) {
         
@@ -43,7 +38,6 @@ export function play_path(synths, path, grid, gridSize, cliPath) {
     Tone.Transport.clear(onBeat);
     Tone.Transport.stop();
     Tone.Transport.cancel();
-    // cur_mouse=[-1,0,0];
     let [n, m] = gridSize;
     let prev_pos = [];
     let last_notes = Array(4, null);
@@ -100,9 +94,7 @@ export function play_path(synths, path, grid, gridSize, cliPath) {
 
             total_time += Tone.Time("4n").toSeconds();
         }
-        // cur_mouse=[-1,0,0];
     }
-    Tone.Transport.scheduleRepeat(onBeat,"64n");
     Tone.Transport.start();
     
     // TonBeat(time,cliPath);

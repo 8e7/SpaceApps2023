@@ -69,13 +69,14 @@ SpaceImage {
   /* background-color: red; */
   margin:0;
   padding: 0;
+  
 }
 #demo-main > #leftpart > * {
   border-radius: 7px;
   background-color: var(--boxcolor);
   margin:0.3vw;
   margin-bottom: 0.6vw;
-  padding: 0.3vw;
+  padding: 0.8vw;
 }
 #howtoplay {
   /* opacity: 0; */
