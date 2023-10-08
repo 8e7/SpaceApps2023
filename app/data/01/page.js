@@ -46,7 +46,6 @@ function SpaceImage({gridData}) {
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         violin.volume.value = music.default_volumes[2];
-
         let violins = [violin, violin, violin, violin];
 
         const flute = new Tone.Sampler({
@@ -54,6 +53,7 @@ function SpaceImage({gridData}) {
         }).toDestination();
         violin.volume.value = music.default_volumes[3];
         let flutes = [flute, flute, flute, flute];
+
         let newSynths = [cellos, pianos, violins, flutes];
         await Tone.start();
         setLoadedSamples(true);
@@ -85,12 +85,11 @@ function SpaceImage({gridData}) {
       const rect = target.getBoundingClientRect();
       let imageSize = [rect.right - rect.left, rect.bottom - rect.top];
       //todo!!
-      const newClipath=[...clipath,[e.clientX+window.screenX,e.clientY+window.scrollY]];
+      const newClipath=[...clipath, [e.clientX + window.screenX, e.clientY + window.scrollY]];
       setClipath(newClipath);
-      //console.log(clipath.length)
       //end todo
-      let pos = [(e.clientX - rect.left)/imageSize[0], (e.clientY - rect.top)/imageSize[1]];
-      pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
+      let pos = [(e.clientX - rect.left) / imageSize[0], (e.clientY - rect.top) / imageSize[1]];
+      pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1 - pos[1]) * gridSize[1])];
       setMousePos(pos);
       // console.log(mousePos);
       const nextPath = [...path, mousePos];
@@ -98,17 +97,17 @@ function SpaceImage({gridData}) {
     }
   }
   return (
-    <div id="image-display-box"><div id="detect-box"
+    <div id = "image-display-box"><div id = "detect-box"
     onMouseDown={mousedown} 
     onMouseUp={mouseup}
     onMouseMove={mousemove}
     onMouseLeave={mouseup}
     onDragStart={(e) => {e.preventDefault();}}>
-      {clipath.map((poss,index)=>{
-        let [x,y]=poss;
-        return (<div id="mouseicon" key={index} style={{top: y, left: x}}></div>);
+      {clipath.map((poss,index) => {
+        let [x, y] = poss;
+        return (<div id = "mouseicon" key = {index} style = {{top: y, left: x}}></div>);
       })}
-      <img src='/image/01.jpg'></img>
+      <img src = '/image/01.jpg'></img>
     </div></div>
   );
 }
@@ -117,7 +116,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { data , error } = useSWR('/data/version2.json', fetcher)
+  const { data, error } = useSWR('/data/version2.json', fetcher)
   if (dataLoaded === false && (!error) && data) {
     setDataLoaded(true);
     const [xSize, ySize] = gridSize;

@@ -39,11 +39,12 @@ export function play_path(synths, path, grid, gridSize) {
     };
 
     //first sync instruments to Tone.Transport
-    for (let i = 0;i < 4;i++) {
+    for (let i = 0; i < 4; i++) {
         synths[2][i].sync();
     }    
     for (let i = 0; i < len; i++) {
         let [x, y] = path[i];
+        if(!grid[x][y])continue;
         let newNote = true;
         if (i) {
             const bpm_multiplier = 2;
@@ -69,7 +70,7 @@ export function play_path(synths, path, grid, gridSize) {
             for (let j = 0; j < 4; j++) {
                 if (notes[j] != last_notes[j]) {
                     if (last_notes[j]) {
-                        Tone.Transport.scheduleOnce(() => {synths[2][j].triggerRelease()}, total_time-0.01);
+                        Tone.Transport.scheduleOnce(() => {synths[2][j].triggerRelease()}, total_time - 0.01);
                     }
                     last_notes[j] = notes[j]
                     if (notes[j]) {
