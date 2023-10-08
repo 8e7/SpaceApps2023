@@ -35,7 +35,6 @@ export function play_path(synths, path, grid, gridSize) {
         return;
     }
     console.log("Playing");
-    Tone.Transport.clear(onBeat);
     Tone.Transport.stop();
     Tone.Transport.cancel();
     let [n, m] = gridSize;

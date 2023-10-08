@@ -104,7 +104,6 @@ function SpaceImage({gridData}) {
         let [x, y] = poss;
         return (<div id="mouseicon" key={index} style={{top: y, left: x}}></div>);
       })}
-      <Now_playing />
       <img src = '/image/01.jpg'></img>
     </div></div>
   );
