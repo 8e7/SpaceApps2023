@@ -72,8 +72,6 @@ function SpaceImage({gridData}) {
   }
   function mouseup(e) {
     setMouseHold(false);
-    
-    // console.log(path);
     if (loadedSamples === true) {
       console.log(gridData);
       music.play_path(synths, path, gridData, gridSize);
