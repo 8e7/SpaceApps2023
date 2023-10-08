@@ -122,7 +122,19 @@ This application could improve the general public&apos;s intepretation on comple
         
       </div>
       <div id="section">
-        <h3>References / Environmenst and Packages</h3>
+        <h3>References / Environments and Packages</h3>
+
+        <h4>Coding Environments</h4>
+        <p>python 3.11</p>
+        <p>pandas</p>
+        <p>numpy</p>
+
+        <h4>Website Packages</h4>
+        <p>next.js, with website deployed by Vercel</p>
+        <p>React</p>
+        <p>node.js</p>
+        <p>tone.js (Web sound API)</p>
+        <p>SWR (Client-Side data fetching)</p>
       </div>
     </div>
   );
