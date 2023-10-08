@@ -24,6 +24,7 @@ export function play_path(synths, path, grid, gridSize) {
     if (len === 0) {
         return;
     }
+    Tone.Transport.stop();
     let [n, m] = gridSize;
     let total_time = 0;
     for (let i = 0;i < len;i++) {
@@ -31,7 +32,7 @@ export function play_path(synths, path, grid, gridSize) {
         let wave = grid[x][y];
         const maxValue = Math.max(...wave);
         const maxInd = wave.indexOf(maxValue);
-        Tone.Transport.scheduleOnce(synths[maxInd].triggerAttackRelease(root_notes[maxInd], "8n"), total_time); 
+        Tone.Transport.scheduleOnce(() =>{synths[maxInd].triggerAttackRelease(root_notes[maxInd], "8n")}, total_time); 
         total_time += Tone.Time("8n").toSeconds();
     }
     Tone.Transport.start();
