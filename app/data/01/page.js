@@ -25,8 +25,21 @@ function SpaceImage({gridData}) {
   const [imageSize, setImageSize] = useState([500, 800]);
 
   const [path, setPath] = useState(Array(0));
+  const [clipath, setClipath]=useState([]);
   const [synths, setSynths] = useState(); //each synth is a sampler
-
+  // const mouseicon=(<div id="mouseicon"></div>);
+  const [mousepaths, setNewpath]=useState([]);
+  // const addpath= ({x,y}) => {
+  //   const newMousepos=<div id="mouseicon" style={{top: y, left:x, opacity:1}}></div>
+  //   // newMousepos.style.top=y+"px";
+  //   // newMousepos.style.left=x+"px";
+  //   setNewpath([...mousepaths,newMousepos]);
+  //   console.log("mousepaths")
+  //   console.log(mousepaths.length)
+  // }
+  // const clearpath=()=>{
+  //   setNewpath([]);
+  // }
   useEffect(() => { 
     if (initMusic === true && loadedSamples == false) {
       let build = async () => {
@@ -70,34 +83,44 @@ function SpaceImage({gridData}) {
   }
   function mouseup(e) {
     setMouseHold(false);
-    console.log(path);
+    
+    // console.log(path);
     if (loadedSamples === true) {
-      console.log(gridData);
+      // console.log(gridData);
       music.play_path(synths, path, gridData, gridSize);
     }
     setPath(Array(0)); //clears path
+    setClipath(Array(0));
   }
   function mousemove(e) {
     if (mouseHold) {
       const target = e.target;
       const rect = target.getBoundingClientRect();
       setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
-
+      //todo!!
+      const newClipath=[...clipath,[e.clientX,e.clientY]];
+      setClipath(newClipath);
+      console.log(clipath.length)
+      //end todo
       let pos = [(e.clientX - rect.left)/imageSize[0], (e.clientY - rect.top)/imageSize[1]];
       pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
       setMousePos(pos);
-      console.log(mousePos);
+      // console.log(mousePos);
       const nextPath = [...path, mousePos];
       setPath(nextPath);
     }
   }
   return (
     <div id="image-display-box"><div id="detect-box"
-      onMouseDown={mousedown} 
-      onMouseUp={mouseup}
-      onMouseMove={mousemove}
-      onMouseLeave={mouseup}
-      onDragStart={(e) => {e.preventDefault();}}>
+    onMouseDown={mousedown} 
+    onMouseUp={mouseup}
+    onMouseMove={mousemove}
+    onMouseLeave={mouseup}
+    onDragStart={(e) => {e.preventDefault();}}>
+      {clipath.map((poss)=>{
+        let [x,y]=poss;
+        return <div id="mouseicon" style={{top: y, left: x}}></div>
+      })}
       <img src='/image/01.jpg'></img>
     </div></div>
   );
@@ -119,7 +142,7 @@ export default function Home() {
       }
     }
     setGridData(array2D);
-    console.log("Complete Init");
+    // console.log("Complete Init");
   }
   return (
     <SpaceImage gridData={gridData}/>

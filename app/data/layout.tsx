@@ -54,7 +54,6 @@ export default function DataLayout({
       <div id="demo-main">
         {children}
         <HowtoPlay />
-        
       </div>
       <Footerbar />
     </div>

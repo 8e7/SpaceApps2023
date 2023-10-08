@@ -6,9 +6,12 @@ import { InferGetStaticPropsType, GetStaticProps } from 'next'
 
 function SpaceImage() {
   return (
-    <div id="image-display-box"><div id="detect-box">
-      <img src='/image/02.jpg'></img>
-    </div></div>
+    <div id="image-display-box">
+      <div id="detect-box">
+        <div id="mouseicon"></div>
+        <img src='/image/02.jpg'></img>
+      </div>
+    </div>
   );
 }
 
