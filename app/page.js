@@ -32,7 +32,7 @@ This application could improve the general public&apos;s intepretation on comple
           The high variety of astronomical data provides us exciting views of our universe in different wavelengths; however, the complexcity of those numerical data is intimidating to the general public. Sonification might be the way the branch non-scientists to the beauty of astronomical events. Even though many sonification projects and tools have been designed, they generally only consider 2-dimensional datsets, and are not interactive. The music that is associated to the image is often pre-assigned.
           </p>
           <p>
-          This is where we come in. Our purpose is to significantly enhance the listening experience, by increasing the dimension of the datacube (in our case, 2 spatial dimensions + 4 color dimensions), and also providing infinite ways of traveling through the image. The users get to choose the path to explore! Our goal is to simulate a "fly by" with immersive sounds, and a listening path that users can have total control of based on their curiosity. The music slices will provide both scientifical meaning and emotional comfortness. We hope that our work can take data sonification to a whole new level.
+          This is where we come in. Our purpose is to significantly enhance the listening experience, by increasing the dimension of the datacube (in our case, 2 spatial dimensions + 4 color dimensions), and also providing infinite ways of traveling through the image. The users get to choose the path to explore! Our goal is to simulate a &quot;fly by&quot; with immersive sounds, and a listening path that users can have total control of based on their curiosity. The music slices will provide both scientifical meaning and emotional comfortness. We hope that our work can take data sonification to a whole new level.
           </p>
         </div>
 
@@ -110,13 +110,13 @@ This application could improve the general public&apos;s intepretation on comple
         <div id="subsection">
           <h3>D. How does it benefit the community?</h3>
           <p>
-          The flexibility of the path choosing is one of our greatest feature, which enables the general public to probe the information along whatever path they want. This provides them a good way to interpret the astronomy data instead of just appreciating the beutiful picture. They can figure out what's happening inside the galaxy while enjoying the harmonic music. As for education, our app can amuse the class and make the students understand astronomy without coducting hard numerical data analysis.
+          The flexibility of the path choosing is one of our greatest feature, which enables the general public to probe the information along whatever path they want. This provides them a good way to interpret the astronomy data instead of just appreciating the beutiful picture. They can figure out what&apos;s happening inside the galaxy while enjoying the harmonic music. As for education, our app can amuse the class and make the students understand astronomy without coducting hard numerical data analysis.
           </p>
           <p>
           For those who is not familiar with astrophysics, this app could show them the beauty of our universe or even bring them into the field of science.
           </p>
           <p>
-          Our app aims at improving people's knowledge of astronomy through a straightforward approach and boosting their passion for science, which is the most import thing of open science.
+          Our app aims at improving people&apos;s knowledge of astronomy through a straightforward approach and boosting their passion for science, which is the most import thing of open science.
           </p>
         </div>
         
