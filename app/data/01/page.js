@@ -22,7 +22,6 @@ function SpaceImage({gridData}) {
   const [loadedSamples, setLoadedSamples] = useState(false);
   const [mousePos, setMousePos] = useState([0, 0]);  
   const [mouseHold, setMouseHold] = useState(false);
-  const [imageSize, setImageSize] = useState([500, 800]);
 
   const [path, setPath] = useState(Array(0));
   const [clipath, setClipath]=useState(Array(0));
@@ -76,8 +75,7 @@ function SpaceImage({gridData}) {
     
     // console.log(path);
     if (loadedSamples === true) {
-      //console.log(gridData);
-
+      console.log(gridData);
       music.play_path(synths, path, gridData, gridSize);
     }
     setPath(Array(0)); //clears path
@@ -87,7 +85,7 @@ function SpaceImage({gridData}) {
     if (mouseHold) {
       const target = e.target;
       const rect = target.getBoundingClientRect();
-      setImageSize([rect.right - rect.left, rect.bottom - rect.top]);
+      let imageSize = [rect.right - rect.left, rect.bottom - rect.top];
       //todo!!
       const newClipath=[...clipath,[e.clientX+window.screenX,e.clientY+window.scrollY]];
       setClipath(newClipath);
@@ -108,9 +106,9 @@ function SpaceImage({gridData}) {
     onMouseMove={mousemove}
     onMouseLeave={mouseup}
     onDragStart={(e) => {e.preventDefault();}}>
-      {clipath.map((poss)=>{
+      {clipath.map((poss,index)=>{
         let [x,y]=poss;
-        return (<div id="mouseicon" key={(x*10000+y)} style={{top: y, left: x}}></div>);
+        return (<div id="mouseicon" key={index} style={{top: y, left: x}}></div>);
       })}
       <img src='/image/01.jpg'></img>
     </div></div>
