@@ -7,7 +7,6 @@ import * as music from '../../library/music.mjs'
 import * as Tone from 'tone'
 import useSWR from 'swr';
 
-
 const gridSize = [438, 438]; //this should be same as data size
 const sample_files = [
   { pitch: 'A2', filename: 'cello_A2.mp3' },
