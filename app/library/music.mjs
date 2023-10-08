@@ -16,6 +16,9 @@ function convert_note(x) {
     const scale_num = scale.length;
     let note = scale[x % scale_num];
     let oct = x / scale_num + 1;
+    if (oct <= 0) {
+        console.log(oct);
+    }
     let res = note+oct;
     return res;
 }
@@ -23,7 +26,7 @@ function convert_note(x) {
 const minimum_move_distance = 4;
 export function play_path(synths, path, grid, gridSize) {
     let len = path.length;
-    if (len === 0) {
+    if (len === 0 || !grid) {
         return;
     }
     console.log("Playing");
@@ -43,8 +46,9 @@ export function play_path(synths, path, grid, gridSize) {
         synths[2][i].sync();
     }    
     for (let i = 0; i < len; i++) {
+        if (!path[i]) continue;
         let [x, y] = path[i];
-        if(!grid[x][y])continue;
+        if (!grid[x] || !grid[x][y]) continue;
         let newNote = true;
         if (i) {
             const bpm_multiplier = 2;
@@ -53,7 +57,6 @@ export function play_path(synths, path, grid, gridSize) {
             if (dis_to_prev < minimum_move_distance) {
                 newNote = false; 
             } else {
-                console.log(i);
                 prev_pos = path[i];
             }
             //let speed = Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
