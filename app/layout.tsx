@@ -13,7 +13,7 @@ function Titlebar() {
   return (
     <div id="titlebar">
       <h1>Ten Hours Of Space Music For Sleeping</h1>
-      <h4>Authors : ...</h4>
+      <h4>Authors : Ting-An Wang, Jhao-Syun Lai, Tuan-Lin Chang, You-Hsuan Chen, Yu-Ciao Liao</h4>
     </div>
   );
 }
