@@ -18,6 +18,30 @@ function Footerbar() {
   )
 }
 
+function HowtoPlay(){
+  return (
+    <div id="howtoplay">
+      <div id="section">
+        <h3>How To Play</h3>
+        <p>
+  Move around your cursor to explore! Click and drag to make a path of your adventure. Release and enjoy the sound of space on this chosen path. Listen carefully, the music can tell you a lot about this area!
+        </p>
+      </div>
+      <div id="section">
+        <h3>About WISE</h3>
+        <p>
+to be upd
+        </p>
+      </div>
+      <div id="section">
+        <h3>About the Music</h3>
+        <p>
+        The data is from WISE telescope, which includes intensity measurement of four bands: 3.4, 4.6, 12, and 22 μm. In order to represent the color of the pixel, we calaulate the weighted average of wavelengths in terms of their intensities. The weighted average of the wavelength is then assigned to a frequency. This will be the base note.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 
 export default function DataLayout({
@@ -27,7 +51,11 @@ export default function DataLayout({
 }) {
   return (
     <div id="sub-body">
-      {children}
+      <div id="demo-main">
+        {children}
+        <HowtoPlay />
+        
+      </div>
       <Footerbar />
     </div>
   );

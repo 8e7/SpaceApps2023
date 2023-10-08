@@ -5,30 +5,16 @@ import Image from 'next/image'
 import { InferGetStaticPropsType, GetStaticProps } from 'next'
 
 function SpaceImage() {
-  const main_img = (<div id="detect-box">
-    <img src='/image/02.jpg'></img>
-  </div>);
   return (
-    <div id="image-display-box">
-      {main_img}
-    </div>
+    <div id="image-display-box"><div id="detect-box">
+      <img src='/image/02.jpg'></img>
+    </div></div>
   );
 }
 
-function HowtoPlay(){
-  return (
-    <div id="howtoplay">
-      <h3>play guide</h3>
-      <p>how to play</p>
-    </div>
-  );
-}
 
 export default function Home() {
   return (
-    <div id="demo-main">
-      <SpaceImage />
-      <HowtoPlay />
-    </div>
+    <SpaceImage />
   );
 }

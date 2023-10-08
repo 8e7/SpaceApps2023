@@ -37,12 +37,12 @@ body {
   /* background-color: red; */
   margin:0;
 }
-#description > #section {
+#section {
   margin:0.3vw;
   margin-bottom: 0.6vw;
   background-color: var(--boxcolor);
   border-radius: 7px;
-  padding: 1.5%;
+  padding: 2%;
 }
 #demo {
   background-color: var(--boxcolor);

@@ -46,7 +46,6 @@ function SpaceImage({gridData}) {
           urls: { A4: "violin_A4.mp3" }, baseUrl: "/samples/",
         }).toDestination();
         violin.volume.value = +5;
-
         let violins = [violin, violin, violin, violin];
         const flute = new Tone.Sampler({
           urls: { A5: "flute_A5.mp3" }, baseUrl: "/samples/",
@@ -104,15 +103,6 @@ function SpaceImage({gridData}) {
   );
 }
 
-function HowtoPlay(){
-  return (
-    <div id="howtoplay">
-      <h3>play guide</h3>
-      <p>how to play</p>
-    </div>
-  );
-}
-
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Home() {
   const [gridData, setGridData] = useState(Array(gridSize[0]).fill().map(()=>Array(gridSize[1]).fill()));
@@ -132,9 +122,6 @@ export default function Home() {
     console.log("Complete Init");
   }
   return (
-    <div id="demo-main">
-      <SpaceImage gridData={gridData}/>
-      <HowtoPlay />
-    </div>
+    <SpaceImage gridData={gridData}/>
   );
 }
