@@ -20,10 +20,8 @@ const sample_files = [
 function SpaceImage({gridData}) {
   const [initMusic, setInitMusic] = useState(false);
   const [loadedSamples, setLoadedSamples] = useState(false);
-  const [mousePos, setMousePos] = useState([0, 0]);  
   const [mouseHold, setMouseHold] = useState(false);
 
-  const [path, setPath] = useState(Array(0));
   const [clipath, setClipath]=useState(Array(0));
   const [synths, setSynths] = useState(); //each synth is a sampler
 
@@ -73,30 +71,33 @@ function SpaceImage({gridData}) {
   function mouseup(e) {
     setMouseHold(false);
     
-    // console.log(path);
     if (loadedSamples === true) {
-      console.log(gridData);
+      //console.log(gridData);
+      const target = e.target;
+      const rect = target.getBoundingClientRect();
+      let imageSize = [rect.right - rect.left, rect.bottom - rect.top];
+      let path = clipath.map((p) => {
+        let pos = [(p[0] - rect.left - window.screenX)/imageSize[0], (p[1] - rect.top - window.screenY)/imageSize[1]];
+        pos = [Math.max(0, Math.min(1, pos[0])), Math.max(0, Math.min(1, pos[0]))]
+        pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
+        return pos;
+      });
       music.play_path(synths, path, gridData, gridSize);
     }
-    setPath(Array(0)); //clears path
     setClipath(Array(0));
   }
   function mousemove(e) {
     if (mouseHold) {
       const target = e.target;
       const rect = target.getBoundingClientRect();
-      let imageSize = [rect.right - rect.left, rect.bottom - rect.top];
-      //todo!!
+      
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+        return;
+      }
+
       const newClipath=[...clipath,[e.clientX+window.screenX,e.clientY+window.scrollY]];
       setClipath(newClipath);
       //console.log(clipath.length)
-      //end todo
-      let pos = [(e.clientX - rect.left)/imageSize[0], (e.clientY - rect.top)/imageSize[1]];
-      pos = [Math.floor(pos[0] * gridSize[0]), Math.floor((1-pos[1]) * gridSize[1])];
-      setMousePos(pos);
-      // console.log(mousePos);
-      const nextPath = [...path, mousePos];
-      setPath(nextPath);
     }
   }
   return (
